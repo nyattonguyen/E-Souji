@@ -1,0 +1,1 @@
+Assignment to constant variable: kiểm tra đặt biến (post: let/ get : const)
