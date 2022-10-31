@@ -34,7 +34,7 @@ const CategoryFilter = (props) => {
                       style={{borderRadius:5}}
                       key={item._id}
                       onPress={() => {
-                          props.categoryFilter(item._id.$oid), 
+                          props.categoryFilter(item._id), 
                           props.setActive(props.categories.indexOf(item))
                       }}
                   >

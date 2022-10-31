@@ -23,7 +23,7 @@ const Login = (props) => {
       if(context.stateUser.isAuthenticated === true){
         props.navigation.navigate("User Profile")
       }
-    },[context.stateUser.isAuthenticated])
+    }, [context.stateUser.isAuthenticated])
 
     const handleSubmit = () => {
       const user = {
@@ -59,7 +59,9 @@ const Login = (props) => {
             {error ? <Error message={error} /> : null}
           </View>
           <View >
-            <Button onPress={() => handleSubmit()} backgroundColor={Colors.main} color={Colors.white}>
+            <Button onPress={() => handleSubmit()} 
+              backgroundColor={Colors.main}
+              color={Colors.white}>
             <Text style={styles.text1}>Đăng nhập</Text>              
             </Button>
           </View>

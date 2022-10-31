@@ -25,12 +25,15 @@ const Checkout = (props) => {
   const [address, setAddress] = useState();
   const [country, setCountry] = useState();
   const [phone, setPhone] = useState();
+  const [hours, setHours] = useState();
+  const [date, setDate] = useState();
+
   const [user, setUser] = useState();
 
   useEffect(() => {
     setOrderItems(props.cartItems);
 
-    if(context.stateUser.isAdmin) {
+    if(context.stateUser.isAuthenticated) {
       setUser(context.stateUser.user.sub)
     } else {
       props.navigation.navigate("Cart");
@@ -56,6 +59,8 @@ const Checkout = (props) => {
       address,
       status: "4",
       user,
+      hours,
+      date
     };
 
     props.navigation.navigate("Payment", { order: order });
@@ -67,6 +72,18 @@ const Checkout = (props) => {
       enableOnAndroid={true}
     >
       <FormContainer title={"Pending Address"}>
+        <Input
+          placeholder={"Chọn giờ"}
+          name={"hours"}
+          value={hours}
+          onChangeText={(text) => setHours(text)}
+        />
+        <Input
+          placeholder={"Chọn ngày"}
+          name={"date"}
+          value={date}
+          onChangeText={(text) => setDate(text)}
+        />
         <Input
           placeholder={"Phone"}
           name={"phone"}

@@ -1,4 +1,4 @@
-import { SET_CURRENT_USER } from "../actions/Auth.actions"
+import { SET_CURRENT_USER,LOGOUT } from "../actions/Auth.actions"
 import isEmpty from "../../assets/common/is-empty"
 
 export default function (state, action) {
@@ -8,8 +8,17 @@ export default function (state, action) {
             ...state,
             isAuthenticated: !isEmpty(action.payload),
             user: action.payload,
-            userProfile: action.userProfile
+            userProfile: action.userProfile,
+
+            
         };
+        case LOGOUT: {
+            return {
+                isAuthenticated: false,
+                user: null,
+                userProfile: null
+            }
+        }
         default:
             return state;
     }

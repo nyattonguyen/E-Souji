@@ -11,14 +11,14 @@ import axios from "axios";
 import baseURL from "../assets/common/baseUrl";
 import Colors from "../color";
 
-const codes = [
-  { name: "Chon tinh trang cv", code: "0" },
-  { name: "Dang cho duyet", code: "4" },
-  { name: "Dang den ....", code: "3" },
-  { name: "Dang lam viec", code: "2" },
-  { name: "Hoan thanh", code: "1" },
+// const codes = [
+//   { name: "Chon tinh trang cv", code: "0" },
+//   { name: "Dang cho duyet", code: "4" },
+//   { name: "Dang den ....", code: "3" },
+//   { name: "Dang lam viec", code: "2" },
+//   { name: "Hoan thanh", code: "1" },
 
-];
+// ];
 
 const OrderCard = (props) => {
   const [orderStatus, setOrderStatus] = useState();
@@ -36,6 +36,7 @@ const OrderCard = (props) => {
         .catch((error) => console.log(error));
     // }
 
+   
     if (props.status == "4") {
       setOrderStatus(<TrafficLight unavailable></TrafficLight>);
       setStatusText("Dang cho duyet");
@@ -47,7 +48,7 @@ const OrderCard = (props) => {
     }else if (props.status == "2") {
         setOrderStatus(<TrafficLight limited></TrafficLight>);
         setStatusText("Dang lam viec");
-        setCardColor("#F1C436F");
+        setCardColor("#F34019");
       }
     
     else {
@@ -55,6 +56,7 @@ const OrderCard = (props) => {
       setStatusText("Hoan thanh");
       setCardColor("#2ECC71");
     }
+    
 
     return () => {
       setOrderStatus();
@@ -63,14 +65,14 @@ const OrderCard = (props) => {
     };
   }, []);
 
-  const updateOrder = () => {
+  const updateFinishedOrder = () => {
     const config = {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     };
 
-    const order = { 
+    const order = { // them ngay va gio bat dau lam 
       id: props.id,
       orderItems: props.orderItems,
       phone: props.phone,
@@ -82,20 +84,21 @@ const OrderCard = (props) => {
       hours: props.hours,
       date: props.date,
       dateOrdered: props.dateOrdered
+
     };
 
     axios
-      .put(`${baseURL}orders/${props.id}`, order, config)
+      .put(`${baseURL}orders/get/checkorder/${props.id}`, order, config)
       .then((res) => {
         if (res.status == 200 || res.status == 201) {
           Toast.show({
             topOffset: 60,
             type: "success",
-            text1: "Order Edited",
+            text1: "Công việc hoàn thành",
             text2: "",
           });
           setTimeout(() => {
-            props.navigation.navigate("Products");
+            props.navigation.navigate("UserProfile");
           }, 500);
         }
       })
@@ -124,32 +127,15 @@ const OrderCard = (props) => {
         <Text>
           Địa chỉ: {props.address}
         </Text>
-        <Text>Quận: {props.country}</Text>
-        <Text>Ngày tạo: {props.dateOrdered.split("T")[0]}</Text>
         <View style={styles.priceContainer}>
           <Text>Đơn giá: </Text>
           <Text style={styles.price}>{props.totalPrice}VND</Text>
         </View>
-        {/* {props.editMode ? ( */}
           <View>        
-            <Picker            
-            mode="dropdown"
-            style={styles.picker}
-            selectedValue={statusChange}
-            placeholder="Change Status"
-            dropdownIconColor={Colors.black}
-            onValueChange={(e) => setStatusChange(e)}>
-              {codes.map((c) => {
-                return (
-                  <Picker.Item key={c.code} label={c.name} value={c.code} />
-                );
-              })}
-            </Picker>
-            <Button style={styles.btn} onPress={() => updateOrder()}>
-              <Text style={{ color: "white" }}>Update</Text>
+            <Button style={styles.btn} onPress={() => updateFinishedOrder()}>
+              <Text style={{ color: "white" }}>Hoàn thành</Text>
             </Button>
           </View>
-        {/* ) : null} */}
       </View>
     </View>
   );

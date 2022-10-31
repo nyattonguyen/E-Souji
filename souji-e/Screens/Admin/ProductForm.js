@@ -25,7 +25,7 @@ const ProductForm = (props) => {
     const [pickerValue, setPickerValue] = useState();
     const [name, setName] = useState();
     const [price, setPrice] = useState();
-    const [quanlity, setQuanlity] = useState();
+    const [quanlityH, setQuanlityH] = useState();
     const [desc, setDescription] = useState();
     const [category, setCategory] = useState();
     const [categories, setCategories] = useState([]);
@@ -40,9 +40,10 @@ const ProductForm = (props) => {
             setItem(props.route.params.item);
             setName(props.route.params.item.name);
             setPrice(props.route.params.item.price.toString());
-            setQuanlity(props.route.params.item.quanlity);
+            setQuanlityH(props.route.params.item.quanlityH);
             setDescription(props.route.params.item.desc);
             setCategory(props.route.params.item.category._id);
+
         }
 
         AsyncStorage.getItem("jwt")
@@ -64,7 +65,7 @@ const ProductForm = (props) => {
     const addProduct = () => {
         if (
             name == "" ||
-            quanlity == "" ||
+            quanlityH == "" ||
             price == "" ||
             desc == "" ||
             category == "" 
@@ -73,22 +74,24 @@ const ProductForm = (props) => {
         }
     
         let formData = new FormData();
+        console.log("category", category)
         formData.append("name", name);
         formData.append("price", price);
-        formData.append("quanlity", quanlity);
+        formData.append("quanlity", quanlityH);
         formData.append("desc", desc);
-        formData.append("category", category);
+        formData.append("category", category);        
 
         const config = {
             headers: {
-                "Content-Type": "multipart/form-data",
-                Authorization: `Bearer ${token}`
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
             }
         }
 
         if(item !== null) {
             axios
             .put(`${baseURL}products/${item.id}`, formData, config)
+
             .then((res) => {
                 if(res.status == 200 || res.status == 201) {
                     Toast.show({
@@ -168,9 +171,9 @@ const ProductForm = (props) => {
         <Input 
          placeholder="Quanlity"
          name="quanlity"
-         id="quanlity"
-         value={quanlity}
-         onChangeText={(text) => setQuanlity(text)}
+         id="quanlityH"
+         value={quanlityH}
+         onChangeText={(text) => setQuanlityH(text)}
         />
          <View style={styles.label}>
             <Text style={{ textDecorationLine: "underline"}}>Description</Text>

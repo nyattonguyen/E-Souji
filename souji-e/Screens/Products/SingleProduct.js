@@ -13,7 +13,7 @@ import Colors from '../../color';
 const { height, width } = Dimensions.get("window")
 
 const SingleProduct = (props) => {
-    const { name, price, countInStock } = props;
+    const { name, price, quanlityH, countInStock } = props;
     const [item, setItem] = useState(props.route.params.item);
     const [availability, setAvailability] = useState('');
 
@@ -24,6 +24,8 @@ const SingleProduct = (props) => {
         <ScrollView style={{ marginBottom: 80, padding: 5 }}>
           <View style={styles.contentContainer}>
             <Text style={styles.contentHeader}>{item.name}</Text>
+            <Text>{item.quanlityH}</Text>
+
             <Text style={styles.title}>Tổng quát</Text>
             <Text style={styles.text}>{item.desc}</Text>
           </View>
