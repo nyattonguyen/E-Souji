@@ -4,7 +4,7 @@ import { Text, Body, Box } from "native-base";
 import { ListItem } from "react-native-elements";
 import Colors from "../../color";
 
-var { width } = Dimensions.get('window');
+var { width } = Dimensions.get("window");
 
 const CartItem = (props) => {
   const data = props.item.item;
@@ -16,7 +16,7 @@ const CartItem = (props) => {
           {data.product.name}
         </Text>
         <Text color={Colors.red} fontWeight={400} marginLeft={10}>
-          {data.product.price}vnd
+          {data.product.price}VND
         </Text>
       </Box>
     </ListItem>

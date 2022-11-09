@@ -7,7 +7,6 @@ import {
   Text,
   Button,
 } from "react-native";
-// import EasyButton from "../../Shared/StyledComponents/EasyButton"
 import Toast from "react-native-toast-message";
 import { connect } from "react-redux";
 import * as actions from "../../Redux/Actions/cartAction";
@@ -21,9 +20,9 @@ const ProductCard = (props) => {
     <View style={styles.container}>
       <View style={styles.card}>
         <Text style={styles.title}>{name}</Text>
-        <Text style={styles.price}>{price}vnđ</Text>
+        <Text style={styles.price}>{price}VND</Text>
       </View>
-      <View>
+      {/* <View>
         <Button
           onPress={() => {
             props.addItemToCart(props),
@@ -37,7 +36,7 @@ const ProductCard = (props) => {
         >
           Add
         </Button>
-      </View>
+      </View> */}
     </View>
   );
 };

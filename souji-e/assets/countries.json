@@ -1,6 +1,20 @@
 [ 
-    {"name": "Quan 1", "code": "q1"}, 
-    {"name": "Quan 2", "code": "q2"}, 
-    {"name": "Quan 3", "code": "q3"}, 
-    {"name": "Quan 4", "code": "q4"}
+    {"name": "Chọn khu vực", "code": ""}, 
+    {"name": "Quận 1", "code": "q1"}, 
+    {"name": "Quận 2", "code": "q2"}, 
+    {"name": "Quận 3", "code": "q3"}, 
+    {"name": "Quận 4", "code": "q4"},
+    {"name": "Quận 5", "code": "q5"},
+    {"name": "Quận 6", "code": "q6"},
+    {"name": "Quận 7", "code": "q7"},
+    {"name": "Quận 8", "code": "q8"},
+    {"name": "Quận 9", "code": "q9"},
+    {"name": "Quận 10", "code": "q10"},
+    {"name": "Quận 11", "code": "11"},
+    {"name": "Quận 12", "code": "12"},
+    {"name": "Quận Binh Thanh", "code": "qBth"},
+    {"name": "Quận Thu Duc", "code": "qThd"},
+    {"name": "Quận Tan Binh", "code": "qTb"},
+    {"name": "Quận Binh Tan", "code": "qBt"},
+    {"name": "Quận Nha Be", "code": "qNB"}
 ]

@@ -1,66 +1,97 @@
-import { Center, Image, Box, Spacer, Text, Button, ScrollView, FlatList, Pressable, HStack } from "native-base";
-import React from "react";
-import { View, StyleSheet }  from "react-native"
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useFocusEffect } from "@react-navigation/native";
+import axios from "axios";
+import {
+  Center,
+  Image,
+  Box,
+  Spacer,
+  Text,
+  Button,
+  ScrollView,
+  FlatList,
+  Pressable,
+  HStack,
+} from "native-base";
+import React, { useContext, useCallback, useState } from "react";
+import { View, StyleSheet } from "react-native";
+import baseURL from "../../assets/common/baseUrl";
 import Colors from "../../color";
+import AuthGlobal from "../../Context/store/AuthGlobal";
+import CardAcDeli from "../../Shared/CardAcDeli";
+import CardAcDo from "../../Shared/CardAcDo";
 
-const DoActivity = () => {
-    return (
-        <View>
-            {/* cong viec dang trong  */}
-            {/* <Box flex={1}>
-                <Center alignContent="center" alignItems="center" h="full">
-                    <Image source={require('../../assets/img/orderempty.png')} w={100} h={100} rounded={5} />
-                    <Center>Công việc đang trống</Center>
+const DoActivity = (props) => {
+  const context = useContext(AuthGlobal);
+  const [orderDeli, setOrderDeli] = useState();
+  const [orderDoi, setOrderDoi] = useState();
 
-                </Center>
-            </Box> */}
+  useFocusEffect(
+    useCallback(() => {
+      if (
+        context.stateUser.isAuthenticated === false ||
+        context.stateUser.isAuthenticated === null
+      ) {
+        props.navigation.navigate("Login");
+      }
 
-            {/* co cong viec dang cho lam  */}
-            <Box h={200}>
-                <ScrollView showsVerticalScrollIndicator={true}>
-                    <View >
-                        <Pressable>
-                            <HStack space={4} justifyContent="space-between" alignItems="center"
-                                    bg={Colors.deepGray} py={5} px={3} >
-                                        <Text fontSize={13} color={Colors.black} isTruncated>Order 123</Text>
-                                        <Text fontSize={13} color={Colors.steelblue} isTruncated>Dang lam</Text>
-                                        <Text px={7} py={1.5} rounded={50} bg={Colors.main} 
-                                        _text={{
-                                            color:Colors.white,
+      // activity doing
+      AsyncStorage.getItem("jwt").then((res) => {
+        if (!context?.stateUser?.user?.id) return;
 
-                                        }}
-                                        _pressed={{
-                                            bg: Colors.main,
-                                        }}>
-                                            120000VND
-                                        </Text>
-                                        
+        axios
+          .get(`${baseURL}orders/userorderdoi/${context.stateUser.user.id}`)
+          .then((x) => {
+            const data = x.data.doactivity;
+            console.log("Cai log 1", data);
+            setOrderDoi(data);
+          });
+      });
 
-                            </HStack>
-                            <Button mt={2} 
-                                    borderRadius={10} ml={20} mr={20} bg={Colors.black} 
-                                    color={Colors.white}
-                             _pressed={{
-                                backgroundColor: Colors.main, color:Colors.black
-                            }}>Da hoan thanh</Button>
-                            <View style={styles.bb} ></View>
+      // dang den
+      AsyncStorage.getItem("jwt").then((res) => {
+        axios
+          .get(`${baseURL}orders/userorderdeli/${context.stateUser.user.id}`)
+          .then((x) => {
+            const data2 = x.data.deliativity;
+            console.log("Cai log 2 ", data2);
+            setOrderDeli(data2);
+          });
+      });
 
-                        </Pressable>
+      // return () => {
+      //     setOrderDeli();
+      // };
+    }, [context.stateUser.isAuthenticated])
+  );
 
-                    </View>
-                </ScrollView>
-            </Box>
-        </View>
-    )
-}
-export default DoActivity
+  return (
+    <View>
+      <Box h={200}>
+        <ScrollView showsVerticalScrollIndicator={true}>
+          <View>
+            {orderDoi
+              ? orderDoi.map((x) => <CardAcDo key={x.id} {...x} />)
+              : null}
+          </View>
+
+          <View>
+            {orderDeli && orderDeli?.length
+              ? orderDeli.map((x) => <CardAcDeli key={x._id} {...x} />)
+              : null}
+          </View>
+        </ScrollView>
+      </Box>
+    </View>
+  );
+};
+export default DoActivity;
 const styles = StyleSheet.create({
-    
-    bb: {
-        width:"full",
-        borderBottomColor: Colors.black,
-        textAlign: "center",
-        marginTop:3,
-        borderBottomWidth:1,
-    }
-})
+  bb: {
+    width: "full",
+    borderBottomColor: Colors.black,
+    textAlign: "center",
+    marginTop: 3,
+    borderBottomWidth: 1,
+  },
+});

@@ -1,5 +1,6 @@
 import React from 'react';
 import { TextInput, StyleSheet } from 'react-native'
+import Colors from '../../color';
 
 const Input = (props) => {
     return (
@@ -28,7 +29,7 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         padding: 10,
         borderWidth: 2,
-        borderColor: 'orange'
+        borderColor: Colors.bluemain
     },
 });
 

@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { View } from "react-native";
+import { View, Text } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import { useEffect } from "react/cjs/react.development";
@@ -11,6 +11,8 @@ import CartNav from "./CartNav";
 import CartIcon from "../Shared/CartIcon";
 import UserNav from "./UserNav";
 import AdminNav from "./AdminNav";
+import ActivityNav from "./ActivityNav";
+
 
 // Context
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -51,7 +53,7 @@ const Main = () => {
       screenOptions={{
         tabBarHideOnKeyboard:true,
         tabBarShowLabel:false,
-        tabBarActiveTintColor:Colors.main
+        tabBarActiveTintColor:Colors.bluemain
       }}
     >
       <Tab.Screen
@@ -68,7 +70,9 @@ const Main = () => {
       <Tab.Screen
         name="Cart"
         component={CartNav}
+        
         options={{
+          headerShown: false,
           tabBarIcon: ({ color }) => (
             <View>
               <FontAwesome5 name="clipboard-list" color={color} size={30} />
@@ -90,7 +94,16 @@ const Main = () => {
         }}
       />
       ): null}
-       
+      <Tab.Screen
+        name="Activity"
+        component={ActivityNav}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ color }) => (
+            <Icon name="list-alt" color={color} size={30} />
+          ),
+        }}
+      />
       <Tab.Screen
         name="User"
         component={UserNav}

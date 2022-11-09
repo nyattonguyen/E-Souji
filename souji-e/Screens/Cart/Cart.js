@@ -23,7 +23,6 @@ import AuthGlobal from "../../Context/store/AuthGlobal";
 var { height, width } = Dimensions.get("window");
 
 const Cart = (props) => {
-
   const context = useContext(AuthGlobal);
 
   var total = 0;
@@ -37,7 +36,7 @@ const Cart = (props) => {
         <Container style={styles.container}>
           <SwipeListView
             data={props.cartItems}
-            renderItem={(data) => (<CartItem item={data} />)}
+            renderItem={(data) => <CartItem item={data} />}
             renderHiddenItem={(data) => (
               <View style={styles.hiddenContainer}>
                 <TouchableOpacity
@@ -59,36 +58,36 @@ const Cart = (props) => {
           />
           <View style={styles.bottomContainer}>
             <View>
-              <Text style={styles.price}>{total}vnd</Text>
+              <Text style={styles.price}>{total}VND</Text>
             </View>
             <View style={styles.ml5}>
               <Button title="Clear" onPress={() => props.clearCart()} />
             </View>
             <View style={styles.ml5}>
               {context.stateUser.isAuthenticated ? (
-              <Button
-                title="Checkout"
-                onPress={() => props.navigation.navigate("Checkout")}
-              />
-                
-              ): (
                 <Button
-                title="Login"
-                onPress={() => props.navigation.navigate("User")}
-              />
+                  title="Tiếp tục"
+                  onPress={() => props.navigation.navigate("Checkout")}
+                />
+              ) : (
+                <Button
+                  title="Đăng nhập"
+                  onPress={() => props.navigation.navigate("User")}
+                />
               )}
             </View>
           </View>
         </Container>
       ) : (
-        <Container >
+        <Container>
           <Center style={styles.emptyContainer}>
             <Text style={styles.center}>Để không gian thoải mái hơn</Text>
-            <TouchableOpacity style={styles.button}
-                            onPress={() => props.navigation.navigate("Home")}
-                >
-                    <Text color={Colors.white}>Đăng việc</Text>
-                </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => props.navigation.navigate("Home")}
+            >
+              <Text color={Colors.white}>Đăng việc</Text>
+            </TouchableOpacity>
           </Center>
         </Container>
       )}
@@ -119,7 +118,7 @@ const styles = StyleSheet.create({
     width: width,
   },
   container: {
-    height:height/2+130
+    height: height / 2 + 130,
   },
   listItem: {
     alignItems: "center",
@@ -144,12 +143,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: Colors.white,
     shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 12,
-        },
-        shadowOpacity: 0.58,
-        shadowRadius: 16.00,
+    shadowOffset: {
+      width: 0,
+      height: 12,
+    },
+    shadowOpacity: 0.58,
+    shadowRadius: 16.0,
   },
   price: {
     fontSize: 18,
@@ -181,10 +180,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     fontSize: 18,
     marginTop: 20,
-    fontWeight:'500',
+    fontWeight: "500",
     backgroundColor: Colors.black,
     color: Colors.white,
     padding: 6,
-    borderRadius:6,
+    borderRadius: 6,
   },
 });

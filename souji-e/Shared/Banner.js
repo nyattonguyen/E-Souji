@@ -52,12 +52,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     width: 380,
-    backgroundColor: Colors.black,
   },
   swiper: {
     width: 425,
     alignItems: "center",
-    marginTop: 10,
     backgroundColor: Colors.deepGray,
     marginLeft:-10,
     marginRight:10,

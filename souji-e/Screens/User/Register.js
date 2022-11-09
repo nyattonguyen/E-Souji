@@ -39,7 +39,7 @@ const Register = (props) => {
         if (res.status == 200) {
             Toast.show({
                 topOffset: 60,
-                type:"sucess",
+                type:"success",
                 text1: "Đăng kí thành công",
                 text2: "Hãy đăng nhập với tài khoản của bạn",
               });
@@ -95,7 +95,7 @@ const Register = (props) => {
           {error ? <Error message={error} /> : null}
         </View>
         <View>
-          <Button bg={Colors.main} onPress={() => register()}>
+          <Button bg={Colors.bluemain} onPress={() => register()}>
             <Text style={styles.text1}>Đăng kí</Text>
           </Button>
         </View>
@@ -127,8 +127,8 @@ const styles = StyleSheet.create({
     },
     text2:{
       fontSize:16,
-      fontWeight:"400",
-      color: Colors.dodgerblue
+      fontWeight:"500",
+      color: Colors.black
 
     }
   });

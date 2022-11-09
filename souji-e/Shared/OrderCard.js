@@ -17,7 +17,6 @@ const codes = [
   { name: "Dang den ....", code: "3" },
   { name: "Dang lam viec", code: "2" },
   { name: "Hoan thanh", code: "1" },
-
 ];
 
 const OrderCard = (props) => {
@@ -29,11 +28,11 @@ const OrderCard = (props) => {
 
   useEffect(() => {
     // if (props.editMode) {
-      AsyncStorage.getItem("jwt")
-        .then((res) => {
-          setToken(res);
-        })
-        .catch((error) => console.log(error));
+    AsyncStorage.getItem("jwt")
+      .then((res) => {
+        setToken(res);
+      })
+      .catch((error) => console.log(error));
     // }
 
     if (props.status == "4") {
@@ -43,17 +42,15 @@ const OrderCard = (props) => {
     } else if (props.status == "3") {
       setOrderStatus(<TrafficLight limited></TrafficLight>);
       setStatusText("Dang den ....");
-      setCardColor("#F1C40F");
-    }else if (props.status == "2") {
-        setOrderStatus(<TrafficLight limited></TrafficLight>);
-        setStatusText("Dang lam viec");
-        setCardColor("#F1C436F");
-      }
-    
-    else {
+      setCardColor("#FFA43D");
+    } else if (props.status == "2") {
+      setOrderStatus(<TrafficLight limited></TrafficLight>);
+      setStatusText("Dang lam viec");
+      setCardColor("#E3D936");
+    } else {
       setOrderStatus(<TrafficLight available></TrafficLight>);
       setStatusText("Hoan thanh");
-      setCardColor("#2ECC71");
+      setCardColor("#B0FFFF");
     }
 
     return () => {
@@ -70,7 +67,7 @@ const OrderCard = (props) => {
       },
     };
 
-    const order = { 
+    const order = {
       id: props.id,
       orderItems: props.orderItems,
       phone: props.phone,
@@ -78,10 +75,11 @@ const OrderCard = (props) => {
       address: props.address,
       status: statusChange,
       totalPrice: props.totalPrice,
+      note: props.note,
       user: props.user,
       hours: props.hours,
       date: props.date,
-      dateOrdered: props.dateOrdered
+      dateOrdered: props.dateOrdered,
     };
 
     axios
@@ -111,44 +109,42 @@ const OrderCard = (props) => {
 
   return (
     <View style={[{ backgroundColor: cardColor }, styles.container]}>
-      <View style={styles.container}>
+      <View style={styles.containerHeader}>
         <Text>Order Number: #{props.id}</Text>
       </View>
       <View style={{ marginTop: 10 }}>
-        <Text>
+        <Text style={{ fontWeight: "500" }}>
           Tình trạng: {statusText} {orderStatus}
         </Text>
         <Text>
           Giờ và ngày booking: {props.hours} && {props.date}
         </Text>
-        <Text>
-          Địa chỉ: {props.address}
-        </Text>
+        <Text>Địa chỉ: {props.address}</Text>
         <Text>Quận: {props.country}</Text>
+        <Text>Ghi chú: {props.note}</Text>
         <Text>Ngày tạo: {props.dateOrdered.split("T")[0]}</Text>
         <View style={styles.priceContainer}>
           <Text>Đơn giá: </Text>
           <Text style={styles.price}>{props.totalPrice}VND</Text>
         </View>
         {/* {props.editMode ? ( */}
-          <View>        
-            <Picker            
+        <View>
+          <Picker
             mode="dropdown"
             style={styles.picker}
             selectedValue={statusChange}
             placeholder="Change Status"
             dropdownIconColor={Colors.black}
-            onValueChange={(e) => setStatusChange(e)}>
-              {codes.map((c) => {
-                return (
-                  <Picker.Item key={c.code} label={c.name} value={c.code} />
-                );
-              })}
-            </Picker>
-            <Button style={styles.btn} onPress={() => updateOrder()}>
-              <Text style={{ color: "white" }}>Update</Text>
-            </Button>
-          </View>
+            onValueChange={(e) => setStatusChange(e)}
+          >
+            {codes.map((c) => {
+              return <Picker.Item key={c.code} label={c.name} value={c.code} />;
+            })}
+          </Picker>
+          <Button style={styles.btn} onPress={() => updateOrder()}>
+            <Text style={{ color: "white" }}>Update</Text>
+          </Button>
+        </View>
         {/* ) : null} */}
       </View>
     </View>
@@ -162,11 +158,24 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     shadowColor: Colors.gray,
     shadowOffset: {
-            width: 0,
-            height: 12,
-        },
-        shadowOpacity: 0.58,
-        shadowRadius: 16.00,
+      width: 0,
+      height: 12,
+    },
+    shadowOpacity: 0.58,
+    shadowRadius: 16.0,
+  },
+  containerHeader: {
+    padding: 20,
+    margin: 10,
+    borderRadius: 10,
+    backgroundColor: Colors.subGreen,
+    shadowColor: Colors.gray,
+    shadowOffset: {
+      width: 0,
+      height: 12,
+    },
+    shadowOpacity: 0.58,
+    shadowRadius: 16.0,
   },
   title: {
     backgroundColor: "#62B1F6",
@@ -182,21 +191,21 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   btn: {
-    width:90,
-    height:36,
-    padding:3,
-    margin:10,
-    alignItems:"center",
-    },    
-    picker: {
-        width:112,
-        shadowColor:Colors.deepGray,
-        alignItems:"center",
-        justifyContent:"center",
-        borderWidth:0,
-        padding:3,
-        borderRadius:6
-    },
+    width: 90,
+    height: 36,
+    padding: 3,
+    margin: 10,
+    alignItems: "center",
+  },
+  picker: {
+    width: 112,
+    shadowColor: Colors.deepGray,
+    alignItems: "center",
+    justifyContent: "center",
+    borderWidth: 0,
+    padding: 3,
+    borderRadius: 6,
+  },
 });
 
 export default OrderCard;

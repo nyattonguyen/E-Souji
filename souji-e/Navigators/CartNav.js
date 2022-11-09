@@ -21,6 +21,8 @@ function MyStack() {
                 options={{
                     headerShown: false,
                 }}
+                
+
             />
             <Stack.Screen 
                 name='Checkout'

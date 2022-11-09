@@ -12,12 +12,11 @@ const Header = () => {
             <SafeAreaView style={styles.header}>
                 <View style={styles.headerLogo}>
                 <Image 
-                    source={require("../assets/image/react.png")}
+                    source={require("../assets/image/logo.png")}
                     size="xl"
                     style={{ height: 60 }}
                 />
                 </View>
-                <Heading  fontSize={16} pl={3} mt={5}>Chào mừng bạn đến với Souji</Heading>
             </SafeAreaView>
         )
     }
@@ -29,13 +28,14 @@ const Header = () => {
             alignContent: "center",
             justifyContent: "center",
             padding:5,
-            backgroundColor: Colors.main
+            backgroundColor: Colors.bluemain
         },
         headerLogo:{
             width:60,
             height:60,
             borderRadius: 35,
-            backgroundColor:Colors.black,
+            backgroundColor:Colors.white,
+            display:"flex",
             alignItems:"center"
         }
     })

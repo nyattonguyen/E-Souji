@@ -20,6 +20,8 @@ const Colors = {
     steelblue:"steelblue",
     text1:"#0B0F0F",
     darkseagreen:"darkseagreen",
-    dodgerblue:"dodgerblue"
+    dodgerblue:"dodgerblue",
+    sdGray:"#3D3D3D",
+    bluemain:"#00C6B0",
 }
 export default Colors

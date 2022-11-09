@@ -20,7 +20,7 @@ import Colors from "../color";
 
 // ];
 
-const OrderBooking = (props) => {
+const History = (props) => {
   const [orderStatus, setOrderStatus] = useState();
   const [statusText, setStatusText] = useState();
   const [statusChange, setStatusChange] = useState();
@@ -87,38 +87,15 @@ const OrderBooking = (props) => {
 
     };
 
-    axios
-      .put(`${baseURL}orders/get/checkorder/${props.id}`, order, config)
-      .then((res) => {
-        if (res.status == 200 || res.status == 201) {
-          Toast.show({
-            topOffset: 60,
-            type: "success",
-            text1: "Công việc hoàn thành",
-            text2: "",
-          });
-          setTimeout(() => {
-            props.navigation.navigate("UserProfile");
-          }, 500);
-        }
-      })
-      .catch((error) => {
-        Toast.show({
-          topOffset: 60,
-          type: "error",
-          text1: "Something went wrong",
-          text2: "Please try again",
-        });
-      });
   };
 
   return (
     <View style={[{ backgroundColor: cardColor }, styles.container]}>
       <View style={styles.container}>
-        <Text>Order Number: #{props.id}</Text>
+        <Text>Mã booking: #{props.id}</Text>
       </View>
       <View style={{ marginTop: 10 }}>
-        <Text>
+        <Text style={{fontWeight:"500"}}>
           Tình trạng: {statusText} {orderStatus}
         </Text>
         <Text>
@@ -131,11 +108,7 @@ const OrderBooking = (props) => {
           <Text>Đơn giá: </Text>
           <Text style={styles.price}>{props.totalPrice}VND</Text>
         </View>
-          <View>        
-            <Button style={styles.btn} onPress={() => updateFinishedOrder()}>
-              <Text style={{ color: "white" }}>Hoàn thành</Text>
-            </Button>
-          </View>
+          
       </View>
     </View>
   );
@@ -153,6 +126,9 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.58,
         shadowRadius: 16.00,
+
+    borderColor: Colors.deepGray,
+    borderWidth: 1,    
   },
   title: {
     backgroundColor: "#62B1F6",
@@ -185,4 +161,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default OrderBooking;
+export default History;

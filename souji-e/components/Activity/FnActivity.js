@@ -1,42 +1,69 @@
-import { Center, Image, Box, Spacer, Text, Button, ScrollView, FlatList, Pressable, HStack, VStack } from "native-base";
-import React from "react";
-import { View, StyleSheet }  from "react-native"
+import {
+    ScrollView,
+} from "native-base";
+import { useFocusEffect } from "@react-navigation/native";
+import React, { useCallback, useState, useContext } from "react";
+import { View, StyleSheet } from "react-native";
 import Colors from "../../color";
-const FnActivity = () => {
-    return (
-        <View>
-            <ScrollView showsVerticalScrollIndicator={true}>
-                    <View style={styles.item}>
-                        <Pressable>
-                        
-                            <HStack space={4} justifyContent="space-between" alignItems="center"
-                                    bg={Colors.deepGray} py={5} px={3} >
-                                        <Text fontSize={13} color={Colors.black} isTruncated>Order 123</Text>
-                                        <Text px={7} py={1.5} rounded={50} bg={Colors.main} 
-                                        _text={{
-                                            color:Colors.white,
 
-                                        }}
-                                        _pressed={{
-                                            bg: Colors.main,
-                                        }}>
-                                            120000VND
-                                        </Text>
-                                        <Text fontSize={13} color={Colors.red} isTruncated>Hoàn thành</Text>
 
-                            </HStack>
-                            
-                        </Pressable>
-                    </View>
-                    
-                </ScrollView>
+import AuthGlobal from "../../Context/store/AuthGlobal";
+import CardActivity from "../../Shared/CardActivity";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import baseURL from "../../assets/common/baseUrl";
+import axios from "axios";
+
+const FnActivity = (props) => {
+  const context = useContext(AuthGlobal);
+  const [orderFn, setOrderFn] = useState();
+
+  useFocusEffect(
+    useCallback(() => {
+      if (
+        context.stateUser.isAuthenticated === false ||
+        context.stateUser.isAuthenticated === null
+      ) {
+        props.navigation.navigate("User");
+      }
+
+      // new order
+      AsyncStorage.getItem("jwt").then((res) => {
+        if (!context?.stateUser?.user?.id) return;
+
+        axios
+          .get(
+            `${baseURL}orders/userorderfinished/${context.stateUser.user.id}`
+          )
+          .then((x) => {
+            const data = x.data.finished;
+            setOrderFn(data);
+          });
+      });
+
+      return () => {
+        setOrderFn();
+      };
+    }, [context.stateUser.isAuthenticated])
+  );
+
+  return (
+    <View>
+      <ScrollView showsVerticalScrollIndicator={true}>
+        <View style={styles.item}>
+          {orderFn
+            ? orderFn.map((item) => {
+                return <CardActivity key={item.id} {...item} />;
+              })
+            : null}
         </View>
-    )
-}
-export default FnActivity
+      </ScrollView>
+    </View>
+  );
+};
+export default FnActivity;
 
 const styles = StyleSheet.create({
-    item: {
-        marginBottom:4,
-    }
-})
+  item: {
+    marginBottom: 4,
+  },
+});

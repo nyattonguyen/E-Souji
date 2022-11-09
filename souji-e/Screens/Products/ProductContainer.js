@@ -97,7 +97,7 @@ const ProductContainer = (props) => {
   };
 
   return (
-    <>
+    <ScrollView>
       {loading == true ? (
         <Container>
           <ScrollView>
@@ -140,7 +140,7 @@ const ProductContainer = (props) => {
           <ActivityIndicator size="large" color={Colors.black} />
         </Container>
       )}
-    </>
+    </ScrollView>
   );
 };
 export default ProductContainer;
