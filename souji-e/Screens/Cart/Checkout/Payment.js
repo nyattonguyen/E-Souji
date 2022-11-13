@@ -5,15 +5,15 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import { CheckBox, ListItem } from "react-native-elements";
 // import {RadioButtonRN} from 'radio-buttons-react-native/RadioButtonRN';
 import { RadioButton } from "react-native-paper";
-import Colors from "../../../color";
+import { Colors } from "../../../color";
 import { Picker } from "@react-native-picker/picker";
 
 var { width } = Dimensions.get("window");
 
 const methods = [
   { name: "Momo", value: 1 },
-  { name: "Paypal", value: 2 },
-  { name: "Card Payment", value: 3 },
+  { name: "Tiền mặt", value: 2 },
+  { name: "Thanh toán bằng thẻ ngân hàng", value: 3 },
 ];
 
 const paymentCards = [

@@ -1,4 +1,5 @@
 import { StatusBar } from "expo-status-bar";
+import { registerRootComponent } from "expo";
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { NativeBaseProvider } from "native-base";
@@ -16,7 +17,7 @@ import Main from "./Navigators/Main";
 //Context Api
 import Auth from "./Context/store/Auth";
 
-const App = () => {
+export const App = () => {
   return (
     // <NativeBaseProvider>
     //   <Test />
@@ -36,7 +37,6 @@ const App = () => {
   );
 };
 export default App;
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,

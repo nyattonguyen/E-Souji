@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Image, StyleSheet, Dimensions, View, ScrollView } from "react-native";
 import Swiper from "react-native-swiper/src";
-import Colors from "../color";
+import { Colors } from "../color";
 
 var { width } = Dimensions.get("window");
 
@@ -21,7 +21,7 @@ const Banner = () => {
   }, []);
 
   return (
-    <ScrollView >
+    <ScrollView>
       <View style={styles.container}>
         <View style={styles.swiper}>
           <Swiper
@@ -57,8 +57,8 @@ const styles = StyleSheet.create({
     width: 425,
     alignItems: "center",
     backgroundColor: Colors.deepGray,
-    marginLeft:-10,
-    marginRight:10,
+    marginLeft: -10,
+    marginRight: 10,
   },
   imageBanner: {
     height: width / 2,
@@ -66,8 +66,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginHorizontal: 20,
     marginTop: 10,
-    borderRadius:5,
-    
+    borderRadius: 5,
   },
 });
 

@@ -10,8 +10,7 @@ import {
 import { ListItem } from "react-native-elements";
 import { SwipeListView, SwipeRow } from "react-native-swipe-list-view";
 import Icon from "react-native-vector-icons/FontAwesome";
-import Colors from "../../color";
-import { block } from "react-native-reanimated";
+import { Colors } from "../../color";
 //
 //
 import { connect } from "react-redux";

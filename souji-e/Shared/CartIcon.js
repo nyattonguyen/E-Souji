@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 import { Badge, Text } from "native-base";
 
 import { connect } from "react-redux";
-import Colors from "../color";
+import { Colors } from "../color";
 
 const CartIcon = (props) => {
   return (
@@ -27,7 +27,7 @@ const mapStateToProps = (state) => {
 const styles = StyleSheet.create({
   badge: {
     width: 11,
-    height:18,
+    height: 18,
     position: "absolute",
     flex: 1,
     justifyContent: "center",
@@ -35,17 +35,15 @@ const styles = StyleSheet.create({
     alignContent: "center",
     top: -4,
     right: -15,
-    backgroundColor:Colors.bluemain,
-    borderRadius:22,
+    backgroundColor: Colors.bluemain,
+    borderRadius: 22,
   },
   text: {
     fontSize: 12,
     width: 15,
     fontWeight: "bold",
-    paddingLeft:4,
-    color:Colors.black,
-    
-
+    paddingLeft: 4,
+    color: Colors.black,
   },
 });
 

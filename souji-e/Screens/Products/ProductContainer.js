@@ -18,7 +18,7 @@ import ProductList from "./ProductList";
 import Banner from "../../Shared/Banner";
 import CategoryFilter from "./CategoryFilter";
 import Header from "../../Shared/Header";
-import Colors from "../../color";
+import { Colors } from "../../color";
 
 var { height, width } = Dimensions.get("window");
 
@@ -121,7 +121,7 @@ const ProductContainer = (props) => {
                     return (
                       <ProductList
                         navigation={props.navigation}
-                        key={item._id.$oid}
+                        key={item.name}
                         item={item}
                       />
                     );

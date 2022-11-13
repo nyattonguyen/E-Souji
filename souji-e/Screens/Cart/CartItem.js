@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Dimensions, StyleSheet } from "react-native";
 import { Text, Body, Box } from "native-base";
 import { ListItem } from "react-native-elements";
-import Colors from "../../color";
+import { Colors } from "../../color";
 
 var { width } = Dimensions.get("window");
 

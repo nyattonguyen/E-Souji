@@ -7,7 +7,6 @@ import { Text } from "native-base";
 import Checkout from "../Screens/Cart/Checkout/Checkout";
 import Confirm from "../Screens/Cart/Checkout/Confirm";
 import Payment from "../Screens/Cart/Checkout/Payment";
-import Colors from "../color";
 
 const Tab = createMaterialTopTabNavigator();
 

@@ -11,7 +11,7 @@ import AuthGlobal from "../../Context/store/AuthGlobal";
 import { logoutUser } from "../../Context/actions/Auth.actions";
 import { useEffect } from "react/cjs/react.development";
 
-import Colors from "../../color";
+import { Colors } from "../../color";
 import History from "../../Shared/History";
 
 const { width } = Dimensions.get("window");

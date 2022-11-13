@@ -1,0 +1,18 @@
+[ 
+    {"name": "Chọn giờ", "code": ""}, 
+    {"name": "5 giờ", "code": "5h"},
+    {"name": "6 giờ", "code": "6h"}, 
+    {"name": "7 giờ", "code": "7h"}, 
+    {"name": "8 giờ", "code": "8h"}, 
+    {"name": "9 giờ", "code": "9h"}, 
+    {"name": "10 giờ", "code": "10h"}, 
+    {"name": "11 giờ", "code": "11h"}, 
+    {"name": "12 giờ", "code": "12h"}, 
+    {"name": "13 giờ", "code": "13h"}, 
+    {"name": "14 giờ", "code": "14h"}, 
+    {"name": "15 giờ", "code": "15h"}, 
+    {"name": "16 giờ", "code": "16h"}, 
+    {"name": "17 giờ", "code": "17h"}, 
+    {"name": "18 giờ", "code": "18h"}, 
+    {"name": "19 giờ", "code": "19h"} 
+]

@@ -1,7 +1,7 @@
 import { Box, Center, Image, Text, Button } from "native-base";
 import React, { useContext } from "react";
 import { StyleSheet, View } from "react-native";
-import Colors from "../../color";
+import { Colors } from "../../color";
 import Tabs from "../../components/Activity/Tabs";
 import AuthGlobal from "../../Context/store/AuthGlobal";
 

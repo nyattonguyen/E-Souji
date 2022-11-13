@@ -11,7 +11,7 @@ import FormContainer from "../../../Shared/Form/FormContainer";
 import Input from "../../../Shared/Form/Input";
 //data
 import { connect } from "react-redux";
-import Colors from "../../../color";
+import { Colors } from "../../../color";
 const countries = require("../../../assets/countries.json");
 const time = require("../../../assets/time.json");
 

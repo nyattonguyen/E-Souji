@@ -17,7 +17,7 @@ import { connect } from "react-redux";
 import * as actions from "../../Redux/Actions/cartAction";
 
 import Date from "../../components/Date";
-import Colors from "../../color";
+import { Colors } from "../../color";
 
 const { height, width } = Dimensions.get("window");
 

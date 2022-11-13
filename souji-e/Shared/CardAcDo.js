@@ -4,12 +4,11 @@ import { Button, HStack, Pressable } from "native-base";
 import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, Dimensions } from "react-native";
 import baseURL from "../assets/common/baseUrl";
-import Colors from "../color";
+import { Colors } from "../color";
 import TrafficLight from "./StyleComponents/TrafficLight";
-import Toast from "react-native-toast-message"
+import Toast from "react-native-toast-message";
 
 const { width } = Dimensions.get("window");
-
 
 const CardAcDo = (props) => {
   const [orderStatus, setOrderStatus] = useState();
@@ -129,10 +128,9 @@ const CardAcDo = (props) => {
               {props.hours} | {props.date}
             </Text>
             <Button style={styles.btn} onPress={() => updateFinishedOrder()}>
-            <Text style={{ color: "white" }}>Hoàn thành</Text>
-          </Button>
+              <Text style={{ color: "white" }}>Hoàn thành</Text>
+            </Button>
           </View>
-          
         </View>
       </Pressable>
     </View>
@@ -151,23 +149,22 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.subGreen,
     shadowColor: Colors.sdGray,
     shadowOffset: {
-            width: 0,
-            height: 12,
-        },
-        shadowOpacity: 0.58,
-        shadowRadius: 16.00,
+      width: 0,
+      height: 12,
+    },
+    shadowOpacity: 0.58,
+    shadowRadius: 16.0,
 
     borderColor: Colors.deepGray,
-    borderWidth:1,
+    borderWidth: 1,
   },
   subContainer: {
-    margin:10,
+    margin: 10,
   },
   item: {
     justifyContent: "space-between",
     alignItems: "center",
-    margin:10,
-
+    margin: 10,
   },
   btn: {
     width: 90,

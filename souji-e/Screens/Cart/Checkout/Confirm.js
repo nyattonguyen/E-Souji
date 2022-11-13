@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { View, StyleSheet, Dimensions, ScrollView, Button } from "react-native";
 import { Text } from "native-base";
 import { ListItem } from "react-native-elements";
-import Colors from "../../../color";
+import { Colors } from "../../../color";
 
 import { connect } from "react-redux";
 import * as actions from "../../../Redux/Actions/cartAction";

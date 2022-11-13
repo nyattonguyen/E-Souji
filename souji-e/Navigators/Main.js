@@ -13,25 +13,20 @@ import UserNav from "./UserNav";
 import AdminNav from "./AdminNav";
 import ActivityNav from "./ActivityNav";
 
-
 // Context
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import AuthGlobal from "../Context/store/AuthGlobal";
-//axios
-import axios from "axios";
-import baseURL from "../assets/common/baseUrl";
 
-import Colors from "../color";
+import { Colors } from "../color";
 
 const Tab = createBottomTabNavigator();
 
 const Main = () => {
-
   const context = useContext(AuthGlobal);
 
   console.log(context);
   // console.log(context.stateUser.userProfile.isAdmin);
-  console.log(!!context?.stateUser?.userProfile?.isAdmin );
+  console.log(!!context?.stateUser?.userProfile?.isAdmin);
   // useEffect(() => {
   //   AsyncStorage.getItem("jwt")
   //       .then((res) => {
@@ -39,21 +34,20 @@ const Main = () => {
   //           .get(`${baseURL}users/${context.stateUser.user.id}`, {
   //             headers: { Authorization: `Bearer ${res}`}
   //           })
-  //           .then((user) => 
+  //           .then((user) =>
   //           {console.log(user.data.isAdmin),
   //           setUserProfile(user.data)});
   //       })
   //       .catch((error) => console.log(error));
   // },[])
 
-
   return (
     <Tab.Navigator
       initialRouteName="Home"
       screenOptions={{
-        tabBarHideOnKeyboard:true,
-        tabBarShowLabel:false,
-        tabBarActiveTintColor:Colors.bluemain
+        tabBarHideOnKeyboard: true,
+        tabBarShowLabel: false,
+        tabBarActiveTintColor: Colors.bluemain,
       }}
     >
       <Tab.Screen
@@ -70,30 +64,28 @@ const Main = () => {
       <Tab.Screen
         name="Cart"
         component={CartNav}
-        
         options={{
           headerShown: false,
           tabBarIcon: ({ color }) => (
             <View>
-              <FontAwesome5 name="clipboard-list" color={color} size={30} />
+              <FontAwesome5 name="shopping-bag" color={color} size={30} />
               <CartIcon />
             </View>
           ),
         }}
       />
-      { context?.stateUser?.userProfile?.isAdmin === true ? (
-        
+      {context?.stateUser?.userProfile?.isAdmin === true ? (
         <Tab.Screen
-        name="Admin"
-        component={AdminNav}
-        options={{
-          headerShown: false,
-          tabBarIcon: ({ color }) => (
-            <Icon name="user" color={color} size={30} />
-          ),
-        }}
-      />
-      ): null}
+          name="Admin"
+          component={AdminNav}
+          options={{
+            headerShown: false,
+            tabBarIcon: ({ color }) => (
+              <Icon name="user" color={color} size={30} />
+            ),
+          }}
+        />
+      ) : null}
       <Tab.Screen
         name="Activity"
         component={ActivityNav}
@@ -114,8 +106,6 @@ const Main = () => {
           ),
         }}
       />
-
-      
     </Tab.Navigator>
   );
 };

@@ -2,7 +2,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { HStack, Pressable, Text, View } from "native-base";
 import React, { useState, useEffect } from "react";
 import { StyleSheet, Dimensions } from "react-native";
-import Colors from "../color";
+import { Colors } from "../color";
 import TrafficLight from "./StyleComponents/TrafficLight";
 
 const { width } = Dimensions.get("window");
@@ -12,7 +12,6 @@ const CardAcDeli = (props) => {
   const [statusText, setStatusText] = useState();
   const [token, setToken] = useState();
   const [cardColor, setCardColor] = useState();
-
 
   useEffect(() => {
     // if (props.editMode) {
@@ -60,7 +59,7 @@ const CardAcDeli = (props) => {
               {statusText}
             </Text>
           </View>
-          <View style={styles.item} flex='1'>
+          <View style={styles.item} flex="1">
             <Text
               px={7}
               py={1.5}
@@ -89,30 +88,29 @@ export default CardAcDeli;
 const styles = StyleSheet.create({
   container: {
     height: 80,
-    width: width-10,
+    width: width - 10,
     flex: 1,
     display: "flex",
-    flexDirection:"row",
-    justifyContent:"space-between",
+    flexDirection: "row",
+    justifyContent: "space-between",
     backgroundColor: Colors.subGreen,
     shadowColor: Colors.sdGray,
     shadowOffset: {
-            width: 0,
-            height: 12,
-        },
-        shadowOpacity: 0.58,
-        shadowRadius: 16.00,
+      width: 0,
+      height: 12,
+    },
+    shadowOpacity: 0.58,
+    shadowRadius: 16.0,
 
     borderColor: Colors.deepGray,
-    borderWidth:1,
+    borderWidth: 1,
   },
-  subContainer:{
-    margin:10,
-  }
-  ,item:{
-    justifyContent:"space-between",
-    alignItems:"center",
-    margin:10,
-
-  }
+  subContainer: {
+    margin: 10,
+  },
+  item: {
+    justifyContent: "space-between",
+    alignItems: "center",
+    margin: 10,
+  },
 });
