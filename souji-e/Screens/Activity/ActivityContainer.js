@@ -6,15 +6,16 @@ import Tabs from "../../components/Activity/Tabs";
 import AuthGlobal from "../../Context/store/AuthGlobal";
 
 const ActivityContainer = (props) => {
-  const context = useContext(AuthGlobal);
-  console.log(context);
+  // const context = useContext(AuthGlobal);
+
   return (
     <View style={styles.container}>
-      {context.stateUser.isAuthenticated ? (
-        <View>
-          <Tabs />
-        </View>
-      ) : (
+      {/* {context.stateUser.isAuthenticated === true ? ( */}
+      <View>
+        <Text> Activity </Text>
+        {/* <Tabs /> */}
+      </View>
+      {/* ) : (
         <View style={styles.containersub}>
           <Text
             marginBottom={20}
@@ -31,7 +32,7 @@ const ActivityContainer = (props) => {
             Đăng nhập
           </Button>
         </View>
-      )}
+      )} */}
     </View>
   );
 };

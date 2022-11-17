@@ -10,6 +10,7 @@ import { Colors } from "../../color";
 
 import axios from "axios";
 import baseURL from "../../assets/common/baseUrl";
+import clientAxios from "../../apis";
 
 const Register = (props) => {
   const [email, setEmail] = useState("");
@@ -31,8 +32,8 @@ const Register = (props) => {
       isAdmin: false,
     };
 
-    axios
-      .post(`${baseURL}users/register`, user)
+    clientAxios
+      .post("/users/register", user)
       .then((res) => {
         if (res.status == 200) {
           Toast.show({

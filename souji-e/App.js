@@ -1,11 +1,9 @@
-import { StatusBar } from "expo-status-bar";
-import { registerRootComponent } from "expo";
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { NativeBaseProvider } from "native-base";
-import { StyleSheet, View } from "react-native";
-import Toast from "react-native-toast-message";
-import ProductContainer from "./Screens/Products/ProductContainer";
+import { StyleSheet, View, Dimensions } from "react-native";
+import { LogBox } from "react-native";
+// import Toast from "react-native-toast-message";
 import Header from "./Shared/Header";
 
 //Redux
@@ -16,12 +14,18 @@ import store from "./Redux/store";
 import Main from "./Navigators/Main";
 //Context Api
 import Auth from "./Context/store/Auth";
+import Test from "./Screens/Activity/Test";
+
+LogBox.ignoreAllLogs(true);
+
+const { width } = Dimensions.get("window");
 
 export const App = () => {
   return (
     // <NativeBaseProvider>
-    //   <Test />
-
+    //   <View style={styles.container}>
+    //     <Test />
+    //   </View>
     // </NativeBaseProvider>
     <Auth>
       <Provider store={store}>
@@ -29,7 +33,6 @@ export const App = () => {
           <NavigationContainer>
             <Header />
             <Main />
-            <Toast ref={(ref) => Toast.setRef(ref)} />
           </NavigationContainer>
         </NativeBaseProvider>
       </Provider>
@@ -40,6 +43,7 @@ export default App;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    width: width,
     alignContent: "center",
     justifyContent: "center",
   },

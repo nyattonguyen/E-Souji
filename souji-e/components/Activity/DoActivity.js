@@ -15,6 +15,7 @@ import {
 } from "native-base";
 import React, { useContext, useCallback, useState } from "react";
 import { View, StyleSheet } from "react-native";
+import clientAxios from "../../apis";
 import baseURL from "../../assets/common/baseUrl";
 import { Colors } from "../../color";
 import AuthGlobal from "../../Context/store/AuthGlobal";
@@ -23,24 +24,17 @@ import CardAcDo from "../../Shared/CardAcDo";
 
 const DoActivity = (props) => {
   const context = useContext(AuthGlobal);
-  const [orderDeli, setOrderDeli] = useState();
-  const [orderDoi, setOrderDoi] = useState();
+  const [orderDeli, setOrderDeli] = useState([]);
+  const [orderDoi, setOrderDoi] = useState([]);
 
   useFocusEffect(
     useCallback(() => {
-      if (
-        context.stateUser.isAuthenticated === false ||
-        context.stateUser.isAuthenticated === null
-      ) {
-        props.navigation.navigate("Login");
-      }
-
       // activity doing
       AsyncStorage.getItem("jwt").then((res) => {
         if (!context?.stateUser?.user?.id) return;
 
-        axios
-          .get(`${baseURL}orders/userorderdoi/${context.stateUser.user.id}`)
+        clientAxios
+          .get(`/orders/userorderdoi/${context.stateUser.user.id}`)
           .then((x) => {
             const data = x.data.doactivity;
             console.log("Cai log 1", data);
@@ -50,8 +44,8 @@ const DoActivity = (props) => {
 
       // dang den
       AsyncStorage.getItem("jwt").then((res) => {
-        axios
-          .get(`${baseURL}orders/userorderdeli/${context.stateUser.user.id}`)
+        clientAxios
+          .get(`/orders/userorderdeli/${context.stateUser.user.id}`)
           .then((x) => {
             const data2 = x.data.deliativity;
             console.log("Cai log 2 ", data2);
@@ -59,9 +53,10 @@ const DoActivity = (props) => {
           });
       });
 
-      // return () => {
-      //     setOrderDeli();
-      // };
+      return () => {
+        setOrderDeli([]);
+        setOrderDoi([]);
+      };
     }, [context.stateUser.isAuthenticated])
   );
 

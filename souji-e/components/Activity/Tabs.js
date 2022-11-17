@@ -1,7 +1,6 @@
 import { Text } from "native-base";
 import React, { useState } from "react";
-import { useWindowDimensions, StyleSheet } from "react-native";
-import { SceneMap, TabBar, TabView } from "react-native-tab-view";
+import { StyleSheet } from "react-native";
 import DoActivity from "./DoActivity";
 import NewActivity from "./NewActivity";
 import FnActivity from "./FnActivity";

@@ -13,7 +13,6 @@ var { width } = Dimensions.get("window");
 const methods = [
   { name: "Momo", value: 1 },
   { name: "Tiền mặt", value: 2 },
-  { name: "Thanh toán bằng thẻ ngân hàng", value: 3 },
 ];
 
 const paymentCards = [
@@ -73,7 +72,7 @@ const Payment = (props) => {
           ) : null}
           <View>
             <Button
-              title={"Confirm"}
+              title={"Tiếp theo"}
               onPress={() => props.navigation.navigate("Xác nhận", { order })}
             />
           </View>

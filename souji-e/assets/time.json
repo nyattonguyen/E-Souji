@@ -1,5 +1,4 @@
 [ 
-    {"name": "Chọn giờ", "code": ""}, 
     {"name": "5 giờ", "code": "5h"},
     {"name": "6 giờ", "code": "6h"}, 
     {"name": "7 giờ", "code": "7h"}, 

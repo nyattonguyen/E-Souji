@@ -14,6 +14,7 @@ const Header = () => {
           source={require("../assets/image/logo.png")}
           size="xl"
           style={{ height: 60 }}
+          alt="logo"
         />
       </View>
     </SafeAreaView>

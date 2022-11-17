@@ -1,4 +1,4 @@
-import { Center, Box, TextArea } from "native-base";
+import { Center, Box, TextArea, Select } from "native-base";
 import React, { useEffect, useState, useContext } from "react";
 import { View, Text, FlatList, Button, StyleSheet } from "react-native";
 import { Picker } from "@react-native-picker/picker";
@@ -110,6 +110,7 @@ const Checkout = (props) => {
           placeholder="Bạn có yêu cầu gì thêm, hãy ghi ở đây nhé"
           name={"note"}
           value={note}
+          width={334}
           onChangeText={(text) => setNote(text)}
         ></TextArea>
         <Input
@@ -126,20 +127,20 @@ const Checkout = (props) => {
           onChangeText={(text) => setAddress(text)}
         />
 
-        <Picker
-          mode="dropdown"
-          style={styles.picker}
-          selectedValue={country}
+        <Select
+          style={styles.selecter}
           placeholder="Chọn khu vực"
+          selectedValue={country}
+          width="84%"
           dropdownIconColor={Colors.black}
           onValueChange={(e) => setCountry(e)}
         >
           {countries.map((c) => {
-            return <Picker.Item key={c.code} label={c.name} value={c.name} />;
+            return <Select.Item key={c.code} label={c.name} value={c.name} />;
           })}
-        </Picker>
+        </Select>
 
-        <View style={{ width: "80%", alignItems: "center" }}>
+        <View style={{ width: "80%", alignItems: "center", marginTop: 10 }}>
           <Button title="Xác nhận" onPress={() => checkOut()} />
         </View>
       </FormContainer>
@@ -174,7 +175,6 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   textarea: {
-    width: 244,
     height: 150,
     backgroundColor: "white",
     margin: 10,
@@ -184,5 +184,17 @@ const styles = StyleSheet.create({
     borderColor: Colors.bluemain,
     justifyContent: "center",
     fontSize: 15,
+  },
+  selecter: {
+    width: "80%",
+    height: 60,
+    backgroundColor: "white",
+    margin: 10,
+    borderRadius: 20,
+    padding: 10,
+    borderWidth: 2,
+    borderColor: Colors.bluemain,
+    justifyContent: "center",
+    fontSize: 13,
   },
 });

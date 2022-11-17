@@ -9,6 +9,7 @@ import * as actions from "../../../Redux/Actions/cartAction";
 import axios from "axios";
 import baseURL from "../../../assets/common/baseUrl";
 import Toast from "react-native-toast-message";
+import clientAxios from "../../../apis";
 
 const { height, width } = Dimensions.get("window");
 
@@ -17,8 +18,8 @@ const Confirm = (props) => {
 
   const confirmOrder = () => {
     const order = finalOrder.order.order;
-    axios
-      .post(`${baseURL}orders`, order)
+    clientAxios
+      .post("/orders", order)
       .then((res) => {
         if (res.status == 200 || res.status == 201) {
           Toast.show({
@@ -46,13 +47,15 @@ const Confirm = (props) => {
   return (
     <ScrollView contentContainerStyle={StyleSheet.container}>
       <View style={styles.titleContainer}>
-        <Text style={styles.text}>Xác nhận thông tin</Text>
+        <Text style={[styles.text, { marginBottom: 5 }]}>
+          Xác nhận thông tin
+        </Text>
         {props.route.params ? (
           <View style={{ borderWidth: 1 }}>
             <Text style={styles.title}></Text>
             <View style={{ padding: 8 }}>
               <Text>Địa chỉ: {finalOrder.order.order.address}</Text>
-              <Text>Quận: {finalOrder.order.order.country}</Text>
+              <Text>{finalOrder.order.order.country}</Text>
               <Text>Ghi chú: {finalOrder.order.order.note}</Text>
             </View>
             <Text style={styles.title}>Gói dịch vụ:</Text>
@@ -71,7 +74,13 @@ const Confirm = (props) => {
           </View>
         ) : null}
         <View style={{ alignItems: "center", margin: 20 }}>
-          <Button title="Thanh toán" onPress={confirmOrder} />
+          <Button
+            title="Đăng bài"
+            onPress={
+              confirmOrder
+              // , ()=> {() => props.navigation.navigate('Hoạt động')}
+            }
+          />
         </View>
       </View>
     </ScrollView>

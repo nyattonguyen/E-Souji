@@ -9,8 +9,8 @@ import {
   Button,
   TouchableOpacity,
 } from "react-native";
+import Icon from "react-native-vector-icons/FontAwesome";
 import { Container, Heading, Center, Box, TextArea } from "native-base";
-import { AntDesign } from "react-native-vector-icons";
 import Toast from "react-native-toast-message";
 
 import { connect } from "react-redux";
@@ -27,39 +27,51 @@ const SingleProduct = (props) => {
   const [availability, setAvailability] = useState("");
 
   return (
-    <Container style={styles.container}>
-      <ScrollView style={{ marginBottom: 80, padding: 5 }}>
-        <View style={styles.contentContainer}>
-          <Text style={styles.contentHeader}>{item.name}</Text>
-          <Text style={[styles.text, { fontWeight: "400" }]}>
-            Thời gian: {item.quanlityH}
-          </Text>
+    <View style={{ width: width, backgroundColor: Colors.black }}>
+      <Container style={styles.container}>
+        <ScrollView style={{ marginBottom: 80, padding: 5 }}>
+          <View style={styles.contentContainer}>
+            <Text style={styles.contentHeader}>{item.name}</Text>
+            <Text style={[styles.text, { fontWeight: "400" }]}>
+              Thời gian: {item.quanlityH}
+            </Text>
 
-          <Text style={styles.title}>Tổng quát</Text>
-          <Text style={styles.text}>{item.desc}</Text>
-        </View>
+            <Text style={styles.title}>Tổng quát</Text>
+            <Text style={styles.text}>{item.desc}</Text>
+          </View>
 
-        <View style={styles.buttonB}>
-          <Text style={styles.text1}>{item.price}VND</Text>
-          <TouchableOpacity
-            onPress={() => {
-              props.addItemToCart(item),
-                Toast.show(
-                  {
-                    topOffset: 60,
-                    type: "success",
-                    text1: "Công việc đã được thêm",
-                    text2: "Vào hoạt động để kiểm tra",
-                  },
-                  setTimeout(300)
-                );
-            }}
-          >
-            <Text style={styles.text2}>Tiếp tục</Text>
-          </TouchableOpacity>
-        </View>
-      </ScrollView>
-    </Container>
+          <View style={styles.buttonB}>
+            <Text style={styles.text1}>{item.price}VND</Text>
+            <TouchableOpacity
+              onPress={() => {
+                props.addItemToCart(item),
+                  Toast.show(
+                    {
+                      topOffset: 60,
+                      type: "success",
+                      text1: "Công việc đã được thêm",
+                      text2: "Vào hoạt động để kiểm tra",
+                    },
+                    setTimeout(300)
+                  );
+              }}
+            >
+              <Text style={[styles.text2, {}]}>Tiếp tục</Text>
+              <Icon
+                name="arrow-right"
+                size={15}
+                style={{
+                  position: "absolute",
+                  color: Colors.white,
+                  right: -20,
+                  top: 10,
+                }}
+              />
+            </TouchableOpacity>
+          </View>
+        </ScrollView>
+      </Container>
+    </View>
   );
 };
 const mapStateToProps = (dispatch) => {
@@ -71,8 +83,9 @@ const mapStateToProps = (dispatch) => {
 
 const styles = StyleSheet.create({
   container: {
-    position: "relative",
+    position: "absolute",
     height: height,
+    width: width + 100,
   },
 
   contentContainer: {
@@ -121,7 +134,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     backgroundColor: Colors.black,
     flexDirection: "row",
-    height: 40,
+    height: 50,
     width: width - 30,
     margin: 10,
     borderRadius: 10,

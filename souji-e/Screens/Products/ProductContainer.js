@@ -10,17 +10,17 @@ import {
 } from "react-native";
 import { Box, Container } from "native-base";
 import { useFocusEffect } from "@react-navigation/native";
-
-// import baseURL from "../../assets/common/baseUrl";
+import { Colors } from "../../color";
+import { SafeAreaView } from "react-native-safe-area-context";
 import axios from "axios";
 
 import ProductList from "./ProductList";
 import Banner from "../../Shared/Banner";
 import CategoryFilter from "./CategoryFilter";
-import Header from "../../Shared/Header";
-import { Colors } from "../../color";
 
-var { height, width } = Dimensions.get("window");
+import clientAxios from "../../apis";
+
+const { height, width } = Dimensions.get("window");
 
 const ProductContainer = (props) => {
   const [products, setProducts] = useState([]);
@@ -32,31 +32,28 @@ const ProductContainer = (props) => {
   const [initialState, setInitialState] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const baseURL = "http://localhost:3333/api/v1";
-
   useEffect(() => {
     setFocus(false);
     setActive(-1);
-
-    axios
-      .get(`${baseURL}/products`)
+    //products
+    clientAxios
+      .get("/products")
       .then((res) => {
         setProducts(res.data);
-        setProductsFiltered(res.data);
         setProductsCtg(res.data);
         setInitialState(res.data);
       })
       .catch((error) => {
-        console.log("Api call error:", error);
+        console.log("Api call error products:", error);
       });
     //categories
-    axios
-      .get(`${baseURL}/categories`)
+    clientAxios
+      .get("/categories")
       .then((res) => {
         setCategory(res.data);
       })
       .catch((error) => {
-        console.log("Api call error:", error);
+        console.log("Api call error category:", error);
       });
 
     return () => {
@@ -95,13 +92,12 @@ const ProductContainer = (props) => {
           ];
     }
   };
-
   return (
-    <ScrollView>
-      {loading == true ? (
-        <Container>
+    <SafeAreaView style={styles.container}>
+      {loading === true ? (
+        <Container width={width}>
           <ScrollView>
-            <View>
+            <View style={{ width: width }}>
               <View>
                 <Banner />
               </View>
@@ -114,6 +110,8 @@ const ProductContainer = (props) => {
                   setActive={setActive}
                 />
               </View>
+
+              {/* test  */}
 
               {productsCtg.length > 0 ? (
                 <View style={styles.listContainer}>
@@ -129,7 +127,7 @@ const ProductContainer = (props) => {
                 </View>
               ) : (
                 <View style={styles.center}>
-                  <Text>No products found</Text>
+                  <Text>Không tìm thấy dịch vụ</Text>
                 </View>
               )}
             </View>
@@ -140,15 +138,15 @@ const ProductContainer = (props) => {
           <ActivityIndicator size="large" color={Colors.black} />
         </Container>
       )}
-    </ScrollView>
+    </SafeAreaView>
   );
 };
 export default ProductContainer;
 
 const styles = StyleSheet.create({
   container: {
-    flexWrap: "wrap",
-    backgroundColor: "gainsboro",
+    width: width + 100,
+    marginTop: -35,
   },
   listContainer: {
     height: height,
@@ -158,6 +156,7 @@ const styles = StyleSheet.create({
     backgroundColor: "gainsboro",
   },
   center: {
+    marginTop: 10,
     justifyContent: "center",
     alignItems: "center",
   },

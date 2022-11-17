@@ -71,7 +71,7 @@ const Cart = (props) => {
               ) : (
                 <Button
                   title="Đăng nhập"
-                  onPress={() => props.navigation.navigate("User")}
+                  onPress={() => props.navigation.navigate("Cài đặt")}
                 />
               )}
             </View>
@@ -80,7 +80,9 @@ const Cart = (props) => {
       ) : (
         <Container>
           <Center style={styles.emptyContainer}>
-            <Text style={styles.center}>Để không gian thoải mái hơn</Text>
+            <Text style={[styles.center, { fontSize: 16 }]}>
+              Để không gian thoải mái hơn
+            </Text>
             <TouchableOpacity
               style={styles.button}
               onPress={() => props.navigation.navigate("Home")}

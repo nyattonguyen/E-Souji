@@ -11,15 +11,6 @@ import axios from "axios";
 import baseURL from "../assets/common/baseUrl";
 import { Colors } from "../color";
 
-// const codes = [
-//   { name: "Chon tinh trang cv", code: "0" },
-//   { name: "Dang cho duyet", code: "4" },
-//   { name: "Dang den ....", code: "3" },
-//   { name: "Dang lam viec", code: "2" },
-//   { name: "Hoan thanh", code: "1" },
-
-// ];
-
 const History = (props) => {
   const [orderStatus, setOrderStatus] = useState();
   const [statusText, setStatusText] = useState();

@@ -4,7 +4,7 @@ import { useFocusEffect } from "@react-navigation/native";
 import { View, Text, StyleSheet, Button } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { Picker } from "@react-native-picker/picker";
-import { Box } from "native-base";
+import { Box, Select } from "native-base";
 import Toast from "react-native-toast-message";
 // axios
 import baseURL from "../../assets/common/baseUrl";
@@ -95,6 +95,8 @@ const EditProfile = (props) => {
       enableOnAndroid={true}
     >
       <FormContainer title={"Nhập đầy đủ thông tin"}>
+        <View style={{ marginTop: 20 }} />
+
         <Input
           placeholder={"Họ tên"}
           name={"name"}
@@ -115,20 +117,21 @@ const EditProfile = (props) => {
           value={street}
           onChangeText={(text) => setStreet(text)}
         />
-        <Box>
-          <Picker
-            mode="dropdown"
-            style={styles.picker}
-            selectedValue={country}
-            placeholder="Chọn khu vực"
-            dropdownIconColor={Colors.black}
-            onValueChange={(e) => setCountry(e)}
-          >
-            {countries.map((c) => {
-              return <Picker.Item key={c.code} label={c.name} value={c.name} />;
-            })}
-          </Picker>
-        </Box>
+
+        <Select
+          style={styles.selecter}
+          placeholder="Chọn khu vực"
+          selectedValue={country}
+          width="84%"
+          marginBottom={10}
+          dropdownIconColor={Colors.black}
+          onValueChange={(e) => setCountry(e)}
+        >
+          {countries.map((c) => {
+            return <Select.Item key={c.code} label={c.name} value={c.name} />;
+          })}
+        </Select>
+
         <View style={{ width: "80%", alignItems: "center" }}>
           <Button title="Cập nhật" onPress={() => updateInfoUser()} />
         </View>
@@ -140,7 +143,7 @@ export default EditProfile;
 
 const styles = StyleSheet.create({
   picker: {
-    width: "90%",
+    width: "80%",
     height: 60,
     backgroundColor: "white",
     margin: 10,
@@ -149,7 +152,19 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: Colors.bluemain,
     justifyContent: "center",
-    fontSize: 15,
+    fontSize: 13,
+  },
+  selecter: {
+    width: "80%",
+    height: 60,
+    backgroundColor: "white",
+    margin: 10,
+    borderRadius: 20,
+    padding: 10,
+    borderWidth: 2,
+    borderColor: Colors.bluemain,
+    justifyContent: "center",
+    fontSize: 13,
   },
   text: {
     color: "currentcolor",

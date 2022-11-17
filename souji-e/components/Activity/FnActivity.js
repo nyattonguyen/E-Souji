@@ -8,6 +8,7 @@ import CardActivity from "../../Shared/CardActivity";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import baseURL from "../../assets/common/baseUrl";
 import axios from "axios";
+import clientAxios from "../../apis";
 
 const FnActivity = (props) => {
   const context = useContext(AuthGlobal);
@@ -15,21 +16,12 @@ const FnActivity = (props) => {
 
   useFocusEffect(
     useCallback(() => {
-      if (
-        context.stateUser.isAuthenticated === false ||
-        context.stateUser.isAuthenticated === null
-      ) {
-        props.navigation.navigate("User");
-      }
-
       // new order
       AsyncStorage.getItem("jwt").then((res) => {
         if (!context?.stateUser?.user?.id) return;
 
-        axios
-          .get(
-            `${baseURL}orders/userorderfinished/${context.stateUser.user.id}`
-          )
+        clientAxios
+          .get(`/orders/userorderfinished/${context.stateUser.user.id}`)
           .then((x) => {
             const data = x.data.finished;
             setOrderFn(data);

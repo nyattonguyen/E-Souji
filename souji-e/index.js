@@ -10,9 +10,8 @@ if (Platform.OS === "android") {
   AppRegistry.runApplication("main", { rootTag });
 }
 // AppRegistry.registerComponent("main", () => App);
-
 // if (Platform.OS === "web") {
-// const rootTag =
-//   document.getElementById("root") || document.getElementById("main");
-// AppRegistry.runApplication("main", { rootTag });
+//   const rootTag =
+//     document.getElementById("root") || document.getElementById("main");
+//   AppRegistry.runApplication("main", { rootTag });
 // }

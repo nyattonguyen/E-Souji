@@ -21,6 +21,7 @@ import { useEffect } from "react/cjs/react.development";
 import History from "../../Shared/History";
 
 import { Colors } from "../../color";
+import clientAxios from "../../apis";
 
 const { width } = Dimensions.get("window");
 
@@ -42,10 +43,8 @@ const HistoryP = (props) => {
       AsyncStorage.getItem("jwt").then((res) => {
         if (!context?.stateUser?.user?.id) return;
 
-        axios
-          .get(
-            `${baseURL}orders/userorderfinished/${context.stateUser.user.id}`
-          )
+        clientAxios
+          .get(`/orders/userorderfinished/${context.stateUser.user.id}`)
           .then((x) => {
             const data = x.data.finished;
             setOrderFn(data);

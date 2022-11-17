@@ -11,7 +11,7 @@ import Toast from "react-native-toast-message";
 import { connect } from "react-redux";
 import * as actions from "../../Redux/Actions/cartAction";
 
-var { width } = Dimensions.get("window");
+var { width, height } = Dimensions.get("window");
 
 const ProductCard = (props) => {
   const { name, price, countInStock } = props;
@@ -22,21 +22,6 @@ const ProductCard = (props) => {
         <Text style={styles.title}>{name}</Text>
         <Text style={styles.price}>{price}VND</Text>
       </View>
-      {/* <View>
-        <Button
-          onPress={() => {
-            props.addItemToCart(props),
-              Toast.show({
-                topOffset: 60,
-                type: "success",
-                text1: "Công việc đã được thêm",
-                text2: "Vào hoạt động để kiểm tra",
-              });
-          }}
-        >
-          Add
-        </Button>
-      </View> */}
     </View>
   );
 };
@@ -51,7 +36,7 @@ const mapStateToProps = (dispatch) => {
 const styles = StyleSheet.create({
   container: {
     width: width - 25,
-    height: "full",
+    height: width / 2 - 80,
     padding: 10,
     borderRadius: 10,
     marginTop: 10,
@@ -74,7 +59,6 @@ const styles = StyleSheet.create({
     height: 65,
     backgroundColor: "transparent",
     width: width - 60,
-    
   },
   title: {
     fontWeight: "bold",

@@ -11,7 +11,7 @@ import {
   HStack,
 } from "native-base";
 import React, { useContext, useState, useCallback } from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Dimensions } from "react-native";
 import { Colors } from "../../color";
 import CardActivity from "../../Shared/CardActivity";
 import { useFocusEffect } from "@react-navigation/native";
@@ -20,6 +20,9 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import baseURL from "../../assets/common/baseUrl";
 import AuthGlobal from "../../Context/store/AuthGlobal";
+import clientAxios from "../../apis";
+
+const { width } = Dimensions.get("window");
 
 const NewActivity = (props) => {
   const context = useContext(AuthGlobal);
@@ -28,19 +31,12 @@ const NewActivity = (props) => {
 
   useFocusEffect(
     useCallback(() => {
-      if (
-        context.stateUser.isAuthenticated === false ||
-        context.stateUser.isAuthenticated === null
-      ) {
-        props.navigation.navigate("User");
-      }
-
       // new order
       AsyncStorage.getItem("jwt").then((res) => {
         if (!context?.stateUser?.user?.id) return;
 
-        axios
-          .get(`${baseURL}orders/userordernew/${context.stateUser.user.id}`)
+        clientAxios
+          .get(`/orders/userordernew/${context.stateUser.user.id}`)
           .then((x) => {
             const data = x.data.newativity;
             setOrderNew(data);
@@ -54,7 +50,7 @@ const NewActivity = (props) => {
   );
 
   return (
-    <View>
+    <View style={styles.container}>
       <Box>
         <ScrollView showsVerticalScrollIndicator={true}>
           <View>
@@ -69,6 +65,7 @@ const NewActivity = (props) => {
                     source={require("../../assets/image/orderempty.png")}
                     w={100}
                     h={100}
+                    alt="isempty"
                   />
                   <Center>Công việc đang trống</Center>
                   <Spacer />
@@ -87,6 +84,10 @@ const NewActivity = (props) => {
 export default NewActivity;
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    width: width,
+  },
   button: {
     backgroundColor: Colors.black,
     color: Colors.white,

@@ -25,7 +25,7 @@ const Banner = () => {
       <View style={styles.container}>
         <View style={styles.swiper}>
           <Swiper
-            style={{ height: width / 2, width: 400 }}
+            style={{ height: width / 2, width: width - 20 }}
             showButtons={false}
             autoplay={true}
             autoplayTimeout={2}
@@ -51,22 +51,23 @@ const Banner = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    width: 380,
+    width: width,
   },
   swiper: {
-    width: 425,
+    width: width + 10,
+    paddingTop: 10,
     alignItems: "center",
     backgroundColor: Colors.deepGray,
-    marginLeft: -10,
+    marginLeft: -15,
     marginRight: 10,
   },
   imageBanner: {
     height: width / 2,
-    width: width - 40,
+    width: width,
     borderRadius: 10,
+    borderBottomLeftRadius: 10,
     marginHorizontal: 20,
     marginTop: 10,
-    borderRadius: 5,
   },
 });
 

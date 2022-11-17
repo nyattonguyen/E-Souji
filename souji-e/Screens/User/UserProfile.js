@@ -13,6 +13,7 @@ import { useEffect } from "react/cjs/react.development";
 
 import { Colors } from "../../color";
 import History from "../../Shared/History";
+import clientAxios from "../../apis";
 
 const { width } = Dimensions.get("window");
 
@@ -34,8 +35,8 @@ const UserProfile = (props) => {
 
       AsyncStorage.getItem("jwt")
         .then((res) => {
-          axios
-            .get(`${baseURL}users/${context.stateUser.user.id}`, {
+          clientAxios
+            .get(`/users/${context.stateUser.user.id}`, {
               headers: { Authorization: `Bearer ${res}` },
             })
             .then((user) => setUserProfile(user.data));
@@ -46,8 +47,8 @@ const UserProfile = (props) => {
       AsyncStorage.getItem("jwt").then((res) => {
         if (!context?.stateUser?.user?.id) return;
 
-        axios
-          .get(`${baseURL}orders/get/userorders/${context.stateUser.user.id}`)
+        clientAxios
+          .get(`/orders/get/userorders/${context.stateUser.user.id}`)
           .then((x) => {
             const data = x.data;
             setOrders(data);
@@ -58,10 +59,8 @@ const UserProfile = (props) => {
       AsyncStorage.getItem("jwt").then((res) => {
         if (!context?.stateUser?.user?.id) return;
 
-        axios
-          .get(
-            `${baseURL}orders/userorderfinished/${context.stateUser.user.id}`
-          )
+        clientAxios
+          .get(`/orders/userorderfinished/${context.stateUser.user.id}`)
           .then((x) => {
             const data = x.data.finished;
             setOrderFn(data);
@@ -123,6 +122,8 @@ const styles = StyleSheet.create({
     flex: 1,
     display: "flex",
     alignItems: "center",
+    elevation: 20,
+    shadowColor: "#52006A",
   },
   subContainer: {
     marginTop: 20,
@@ -130,26 +131,16 @@ const styles = StyleSheet.create({
   btn: {
     backgroundColor: Colors.bluemain,
     fontWeight: "600",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 4,
-    },
-    shadowOpacity: 0.32,
-    shadowRadius: 5.46,
-
-    elevation: 9,
+    elevation: 20,
+    shadowColor: "#52006A",
   },
   containerSD: {
     backgroundColor: Colors.white,
     borderRadius: 10,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 7,
-    },
-    shadowOpacity: 0.43,
-    elevation: 15,
+    shadowColor: "#171717",
+    shadowOffset: { width: -2, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
   },
   history: {
     margin: 10,
@@ -163,15 +154,13 @@ const styles = StyleSheet.create({
     display: "flex",
     alignItems: "center",
     width: width - 60,
-    height: 320,
+    height: 340,
     backgroundColor: Colors.white,
     borderRadius: 10,
-    shadowColor: "#008D6C",
-    shadowOffset: {
-      width: 0,
-      height: 7,
-    },
-    shadowOpacity: 0.43,
+    shadowColor: "#171717",
+    shadowOffset: { width: -2, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
 
     elevation: 15,
   },
