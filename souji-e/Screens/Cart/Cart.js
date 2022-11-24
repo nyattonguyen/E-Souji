@@ -60,7 +60,7 @@ const Cart = (props) => {
               <Text style={styles.price}>{total}VND</Text>
             </View>
             <View style={styles.ml5}>
-              <Button title="Clear" onPress={() => props.clearCart()} />
+              <Button title="Xóa tất cả" onPress={() => props.clearCart()} />
             </View>
             <View style={styles.ml5}>
               {context.stateUser.isAuthenticated ? (

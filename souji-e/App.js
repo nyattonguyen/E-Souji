@@ -1,9 +1,9 @@
-import React from "react";
+import React, { createRef } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { NativeBaseProvider } from "native-base";
 import { StyleSheet, View, Dimensions } from "react-native";
 import { LogBox } from "react-native";
-// import Toast from "react-native-toast-message";
+import Toast from "react-native-toast-message";
 import Header from "./Shared/Header";
 
 //Redux
@@ -14,17 +14,19 @@ import store from "./Redux/store";
 import Main from "./Navigators/Main";
 //Context Api
 import Auth from "./Context/store/Auth";
+import Test1 from "./Screens/Activity/Test1";
 import Test from "./Screens/Activity/Test";
 
 LogBox.ignoreAllLogs(true);
 
 const { width } = Dimensions.get("window");
+// this.Toast = createRef();
 
 export const App = () => {
   return (
     // <NativeBaseProvider>
     //   <View style={styles.container}>
-    //     <Test />
+    //     <Test1 />
     //   </View>
     // </NativeBaseProvider>
     <Auth>
@@ -40,6 +42,7 @@ export const App = () => {
   );
 };
 export default App;
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,

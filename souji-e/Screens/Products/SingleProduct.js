@@ -44,16 +44,17 @@ const SingleProduct = (props) => {
             <Text style={styles.text1}>{item.price}VND</Text>
             <TouchableOpacity
               onPress={() => {
-                props.addItemToCart(item),
-                  Toast.show(
-                    {
-                      topOffset: 60,
-                      type: "success",
-                      text1: "Công việc đã được thêm",
-                      text2: "Vào hoạt động để kiểm tra",
-                    },
-                    setTimeout(300)
-                  );
+                props.addItemToCart(item);
+                //,
+                // Toast.show(
+                //   {
+                //     topOffset: 60,
+                //     type: "success",
+                //     text1: "Công việc đã được thêm",
+                //     text2: "Vào hoạt động để kiểm tra",
+                //   },
+                //   setTimeout(300)
+                // );
               }}
             >
               <Text style={[styles.text2, {}]}>Tiếp tục</Text>

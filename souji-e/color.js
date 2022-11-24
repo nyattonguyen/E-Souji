@@ -22,4 +22,5 @@ export const Colors = {
   dodgerblue: "dodgerblue",
   sdGray: "#3D3D3D",
   bluemain: "#00C6B0",
+  paypal: "#FFE300",
 };

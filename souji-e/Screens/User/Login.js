@@ -12,8 +12,8 @@ import { Colors } from "../../color";
 const Login = (props) => {
   const context = useContext(AuthGlobal);
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("inu@gmail.com");
+  const [password, setPassword] = useState("111111");
   const [error, setError] = useState("");
 
   useEffect(() => {

@@ -1,21 +1,19 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import axios from "axios";
-import { Button, HStack, Pressable } from "native-base";
-import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, Dimensions } from "react-native";
-import baseURL from "../assets/common/baseUrl";
-import { Colors } from "../color";
-import TrafficLight from "./StyleComponents/TrafficLight";
-import Toast from "react-native-toast-message";
 import moment from "moment";
+import { Button, HStack, Pressable, Text, View } from "native-base";
+import React, { useState, useEffect } from "react";
+import { StyleSheet, Dimensions } from "react-native";
 import clientAxios from "../apis";
+import { Colors } from "../color";
+import { Toast } from "react-native-toast-message/lib/src/Toast";
+import TrafficLight from "./StyleComponents/TrafficLight";
+import axios from "axios";
 
 const { width } = Dimensions.get("window");
 
-const CardAcDo = (props) => {
+const CardNewOrder = (props) => {
   const [orderStatus, setOrderStatus] = useState();
   const [statusText, setStatusText] = useState();
-  const [statusChange, setStatusChange] = useState();
   const [token, setToken] = useState();
   const [cardColor, setCardColor] = useState();
 
@@ -53,22 +51,9 @@ const CardAcDo = (props) => {
     };
   }, []);
 
-  const updateFinishedOrder = () => {
-    const order = {
-      id: props.id,
-      orderItems: props.orderItems,
-      phone: props.phone,
-      country: props.country,
-      address: props.address,
-      status: statusChange,
-      totalPrice: props.totalPrice,
-      user: props.user,
-      hours: props.hours,
-      date: props.date,
-      dateOrdered: props.dateOrdered,
-    };
+  const cancleOrder = () => {
     clientAxios
-      .put(`${baseURL}orders/get/checkorder/${props.id}`, order)
+      .delete(`/${props.id}`)
       .then((res) => {
         if (res.status == 200 || res.status == 201) {
           Toast.show({
@@ -78,7 +63,7 @@ const CardAcDo = (props) => {
             text2: "",
           });
           setTimeout(() => {
-            props.navigation.navigate("FnActivity");
+            props.navigation.navigate("Chờ duyệt");
           }, 500);
         }
       })
@@ -94,19 +79,19 @@ const CardAcDo = (props) => {
 
   return (
     <View style={styles.subContainer}>
-      <Pressable>
+      <Pressable backgroundColor={Colors.subGreen}>
         <View style={styles.container}>
-          <View style={styles.item} flex={1}>
+          <View style={styles.item} flex="1">
             <Text fontSize={13} color={Colors.black} isTruncated>
               {props.id}
             </Text>
-            <Text fontSize={13} color={Colors.dodgerblue}>
+            <Text fontSize={13} color={Colors.steelblue}>
               {statusText}
             </Text>
           </View>
           <View style={styles.item} flex={1}>
             <Text
-              px={7}
+              px={4}
               py={1.5}
               rounded={50}
               bg={Colors.bluemain}
@@ -120,28 +105,26 @@ const CardAcDo = (props) => {
               {props.totalPrice}VND
             </Text>
             <Text fontSize={13} color={Colors.black}>
-              {props.hours} | {moment(props.date).format("DD-MM-YYYY")}{" "}
+              {props.hours} | {props.date}
             </Text>
-            <Button style={styles.btn} onPress={() => updateFinishedOrder()}>
-              <Text style={{ color: "white" }}>Hoàn thành</Text>
-            </Button>
           </View>
         </View>
       </Pressable>
     </View>
   );
 };
-export default CardAcDo;
+export default CardNewOrder;
 
 const styles = StyleSheet.create({
   container: {
-    height: 120,
+    height: 100,
     width: width,
     flex: 1,
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
     backgroundColor: Colors.subGreen,
+    borderWidth: 0.5,
     shadowColor: Colors.sdGray,
     shadowOffset: {
       width: 0,
@@ -151,8 +134,6 @@ const styles = StyleSheet.create({
     shadowRadius: 16.0,
 
     borderColor: Colors.deepGray,
-    borderWidth: 1,
-    marginBottom: 4,
   },
   subContainer: {
     margin: 10,
@@ -161,11 +142,15 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     margin: 10,
+    flexDirection: "column",
   },
   btn: {
+    display: "flex",
     height: 40,
-    margin: 10,
-    alignItems: "center",
-    justifyContent: "center",
+    width: width,
+    flex: 2,
+    position: "relative",
+    flexDirection: "row-reverse",
+    borderRadius: 4,
   },
 });

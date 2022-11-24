@@ -3,7 +3,7 @@ import { View, StyleSheet, Dimensions, ScrollView, Button } from "react-native";
 import { Text } from "native-base";
 import { ListItem } from "react-native-elements";
 import { Colors } from "../../../color";
-
+import moment from "moment";
 import { connect } from "react-redux";
 import * as actions from "../../../Redux/Actions/cartAction";
 import axios from "axios";
@@ -30,7 +30,7 @@ const Confirm = (props) => {
           });
           setTimeout(() => {
             props.clearCart();
-            props.navigation.navigate("Activity");
+            props.navigation.navigate("Hoạt động");
           }, 500);
         }
       })
@@ -54,6 +54,11 @@ const Confirm = (props) => {
           <View style={{ borderWidth: 1 }}>
             <Text style={styles.title}></Text>
             <View style={{ padding: 8 }}>
+              <Text>
+                Book ngày:
+                {moment(finalOrder.order.order.date).format("DD-MM-YYYY")}{" "}
+              </Text>
+              <Text>Book giờ: {finalOrder.order.order.hours}</Text>
               <Text>Địa chỉ: {finalOrder.order.order.address}</Text>
               <Text>{finalOrder.order.order.country}</Text>
               <Text>Ghi chú: {finalOrder.order.order.note}</Text>

@@ -1,17 +1,30 @@
-import React, { useState } from "react";
-import { Dimensions, View, Button, StyleSheet, Pressable } from "react-native";
-import { Container, Text, Box, Center, Radio } from "native-base";
+import React, { useState, useEffect } from "react";
+import {
+  Dimensions,
+  View,
+  Button,
+  StyleSheet,
+  Pressable,
+  TouchableOpacity,
+} from "react-native";
+import { Container, Text, Box, Center, Radio, Image } from "native-base";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { CheckBox, ListItem } from "react-native-elements";
 // import {RadioButtonRN} from 'radio-buttons-react-native/RadioButtonRN';
 import { RadioButton } from "react-native-paper";
 import { Colors } from "../../../color";
 import { Picker } from "@react-native-picker/picker";
+import axios from "axios";
+import baseURL from "../../../assets/common/baseUrl";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import Toast from "react-native-toast-message";
+import clientAxios from "../../../apis";
 
 var { width } = Dimensions.get("window");
 
+// this.Toast = React.createRef();
 const methods = [
-  { name: "Momo", value: 1 },
+  // { name: "Momo", value: 1 },
   { name: "Tiền mặt", value: 2 },
 ];
 
@@ -22,9 +35,45 @@ const paymentCards = [
 
 const Payment = (props) => {
   const order = props.route.params;
+  // console.log("dayne", order);
 
   const [selected, setSelected] = useState();
   const [card, setCard] = useState();
+  const [token, setToken] = useState();
+
+  useEffect(() => {
+    AsyncStorage.getItem("jwt")
+      .then((res) => {
+        setToken(res);
+      })
+      .catch((error) => console.log(error));
+  });
+
+  const buyOrder = () => {
+    clientAxios
+      .post(`${baseURL}orders/pay`)
+      .then((res) => {
+        if (res.status == 200 || res.status == 201) {
+          Toast.show({
+            topOffset: 60,
+            type: "success",
+            text1: "Công việc hoàn thành",
+            text2: "",
+          });
+          setTimeout(() => {
+            props.navigation.navigate("Thanh toán");
+          }, 500);
+        }
+      })
+      .catch((error) => {
+        Toast.show({
+          topOffset: 60,
+          type: "error",
+          text1: "Có lỗi xảy ra",
+          text2: "Vui lòng thử lại",
+        });
+      });
+  };
 
   return (
     <Container>
@@ -36,6 +85,28 @@ const Payment = (props) => {
             </Text>
           </Center>
         </Box>
+        <TouchableOpacity
+          style={{
+            width: width - 20,
+            marginLeft: 24,
+            marginRight: 24,
+            height: 80,
+            backgroundColor: Colors.paypal,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+          // onPress={() => buyOrder()}
+        >
+          <Image
+            source={require("../../../assets/image/paypal.png")}
+            size="sm"
+            width={200}
+            height={50}
+            position="absolute"
+            marginLeft={24}
+            marginRight={24}
+          />
+        </TouchableOpacity>
         <Box>
           {methods.map((item, index) => {
             return (

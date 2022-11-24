@@ -1,6 +1,8 @@
 import { Center, Box, TextArea, Select } from "native-base";
 import React, { useEffect, useState, useContext } from "react";
 import { View, Text, FlatList, Button, StyleSheet } from "react-native";
+import CalendarStrip from "react-native-calendar-strip";
+import moment from "moment";
 import { Picker } from "@react-native-picker/picker";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
@@ -51,7 +53,7 @@ const Checkout = (props) => {
   }, []);
 
   const checkOut = () => {
-    console.log("orders", orderItems);
+    // console.log("orders", orderItems);
     if (!hours || !date || !phone || !address || !country) {
       Toast.show({
         topOffset: 60,
@@ -71,7 +73,7 @@ const Checkout = (props) => {
         note,
         user,
         hours,
-        date,
+        date: date,
         dateOrdered: Date.now(),
       };
 
@@ -86,24 +88,57 @@ const Checkout = (props) => {
     >
       <FormContainer title={"Nhập đầy đủ thông tin"}>
         <Text style={styles.text}>Vui lòng đặt trước khoảng 30 phút</Text>
-        <Picker
+        <View
+          style={{
+            width: "100%",
+            justifyContent: "center",
+            flex: 1,
+            borderColor: Colors.sdGray,
+          }}
+        >
+          <CalendarStrip
+            calendarAnimation={{ type: "sequence", duration: 30 }}
+            daySelectionAnimation={{
+              type: "border",
+              duration: 200,
+              borderWidth: 1,
+              borderHighlightColor: Colors.blue,
+            }}
+            style={{ height: 100, paddingTop: 20, paddingBottom: 10 }}
+            calendarHeaderStyle={{ color: "black" }}
+            calendarColor={Colors.white}
+            dateNumberStyle={{ color: "black" }}
+            dateNameStyle={{ color: "black" }}
+            highlightDateNumberStyle={{ color: Colors.blue }}
+            highlightDateNameStyle={{ color: Colors.blue }}
+            disabledDateNameStyle={{ color: "grey" }}
+            iconContainer={{ flex: 0.1 }}
+            disabledDateNumberStyle={{ color: "grey" }}
+            selectedDate={date}
+            onDateSelected={(e) => setDate(e)}
+            scrollable={true}
+          />
+        </View>
+        <Select
           mode="dropdown"
-          style={styles.picker}
+          style={styles.selecter}
           selectedValue={hours}
-          placeholder="Chọn khu vực"
+          width="84%"
+          placeholder="Chọn giờ"
           dropdownIconColor={Colors.black}
           onValueChange={(e) => setHours(e)}
         >
           {time.map((c) => {
-            return <Picker.Item key={c.code} label={c.name} value={c.name} />;
+            return <Select.Item key={c.code} label={c.name} value={c.name} />;
           })}
-        </Picker>
-        <Input
+        </Select>
+
+        {/* <Input
           placeholder={"Chọn ngày"}
           name={"date"}
           value={date}
           onChangeText={(text) => setDate(text)}
-        />
+        /> */}
 
         <TextArea
           style={styles.textarea}
@@ -131,6 +166,7 @@ const Checkout = (props) => {
           style={styles.selecter}
           placeholder="Chọn khu vực"
           selectedValue={country}
+          dropdownIcon={true}
           width="84%"
           dropdownIconColor={Colors.black}
           onValueChange={(e) => setCountry(e)}

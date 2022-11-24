@@ -21,6 +21,8 @@ import axios from "axios";
 import baseURL from "../../assets/common/baseUrl";
 import AuthGlobal from "../../Context/store/AuthGlobal";
 import clientAxios from "../../apis";
+import CardNewOrder from "../../Shared/CartNewOrder";
+import CardAcNew from "../../Shared/CardActivity";
 
 const { width } = Dimensions.get("window");
 
@@ -48,6 +50,35 @@ const NewActivity = (props) => {
       };
     }, [context.stateUser.isAuthenticated])
   );
+  console.log("ccccc", orderNew);
+
+  const cancleOrder = (id) => {
+    clientAxios
+      .delete(`orders/${id}`)
+      .then((res) => {
+        const order = orderNew.filter((item) => item._id !== id);
+        setOrderNew(order);
+        if (res.status == 200 || res.status == 201) {
+          Toast.show({
+            topOffset: 60,
+            type: "success",
+            text1: "Hủy thành công",
+            text2: "",
+          });
+          setTimeout(() => {
+            props.navigation.navigate("Chờ duyệt");
+          }, 500);
+        }
+      })
+      .catch((error) => {
+        Toast.show({
+          topOffset: 60,
+          type: "error",
+          text1: "Có lỗi xảy ra",
+          text2: "Vui lòng thử lại",
+        });
+      });
+  };
 
   return (
     <View style={styles.container}>
@@ -56,7 +87,16 @@ const NewActivity = (props) => {
           <View>
             {orderNew ? (
               orderNew.map((x) => {
-                return <CardActivity key={x.id} {...x} />;
+                return (
+                  <View>
+                    <CardAcNew key={x.id} {...x} />
+                    <View style={styles.btn}>
+                      <Button marginRight={10} onPress={() => cancleOrder()}>
+                        Hủy
+                      </Button>
+                    </View>
+                  </View>
+                );
               })
             ) : (
               <Box flex={1}>
@@ -93,5 +133,14 @@ const styles = StyleSheet.create({
     color: Colors.white,
     borderRadius: 8,
     marginTop: 30,
+  },
+  btn: {
+    display: "flex",
+    height: 40,
+    width: width,
+    flex: 2,
+    position: "relative",
+    flexDirection: "row-reverse",
+    borderRadius: 4,
   },
 });
