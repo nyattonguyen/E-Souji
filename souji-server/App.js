@@ -1,8 +1,8 @@
 import { StatusBar } from "expo-status-bar";
-import React from "react";
+import React, { useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import { NativeBaseProvider } from "native-base";
-import { StyleSheet, View } from "react-native";
+import { NativeBaseProvider, View } from "native-base";
+import { StyleSheet } from "react-native";
 import Toast from "react-native-toast-message";
 import Header from "./Shared/Header";
 
@@ -14,12 +14,13 @@ import store from "./Redux/store";
 import Main from "./Navigators/Main";
 //Context Api
 import Auth from "./Context/store/Auth";
+import Banner from "./Shared/Banner";
 
 export const App = () => {
+  const [size, setSize] = useState();
   return (
     // <NativeBaseProvider>
-    //   <Test />
-
+    //   <Banner />
     // </NativeBaseProvider>
     <Auth>
       <Provider store={store}>

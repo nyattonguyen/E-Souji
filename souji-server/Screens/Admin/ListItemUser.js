@@ -7,20 +7,19 @@ import {
   TouchableHighLight,
   TouchableOpacity,
   Dimensions,
+  Button,
   Modal,
 } from "react-native";
-import { Button, Switch } from "native-base";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { Colors } from "../../color";
-import Toast from "react-native-toast-message";
 
 var { width } = Dimensions.get("window");
 
-const ListItem = (props) => {
+const ListItemUser = (props) => {
   const [modalVisible, setModalVisible] = useState(false);
 
   return (
-    <View style={{ paddingLeft: 10 }}>
+    <View>
       <Modal
         animationType="fade"
         transparent={true}
@@ -45,44 +44,18 @@ const ListItem = (props) => {
             >
               <Icon name="close" size={20} />
             </TouchableOpacity>
-            {props.status === false ? (
-              <Button
-                color={Colors.blue}
-                onPress={() => [props.pin(props._id), setModalVisible(false)]}
-              >
-                Ghim
-              </Button>
-            ) : (
-              <Button
-                color={Colors.blue}
-                onPress={() => [props.unpin(props._id), setModalVisible(false)]}
-              >
-                Bỏ ghim
-              </Button>
-            )}
+
             <Button
-              background="#ff9200"
-              marginTop={5}
-              onPress={() => [
-                props.navigation.navigate("ProductForm", { item: props }),
-                setModalVisible(false),
-              ]}
-            >
-              Edit
-            </Button>
-            <Button
-              marginTop={5}
-              background={Colors.red}
-              onPress={() => [props.delete(props._id), setModalVisible(false)]}
-            >
-              Delete
-            </Button>
+              title="Disable"
+              color={Colors.red}
+              onPress={() => [props.disable(props._id), setModalVisible(false)]}
+            ></Button>
           </View>
         </View>
       </Modal>
       <TouchableOpacity
         // onPress={() =>
-        //   props.navigation.navigate("Product Detail", { item: props })
+        //   props.navigation.navigate("", { item: props })
         // }
         onLongPress={() => setModalVisible(true)}
         style={[
@@ -93,30 +66,22 @@ const ListItem = (props) => {
         ]}
       >
         <Text
-          style={[styles.item, { paddingLeft: 10 }]}
+          style={[styles.item, { paddingLeft: 15 }]}
           numberOfLines={1}
           ellipsizeMode="tail"
         >
           {props.name}
         </Text>
         <Text style={styles.item} numberOfLines={1} ellipsizeMode="tail">
-          {props.category.name}
+          {props.email}
         </Text>
-        <Text style={styles.item}>{props.price} VND</Text>
-        <Switch
-          offTrackColor={Colors.gray}
-          onTrackColor={Colors.bluemain}
-          // isChecked={props.status === true}
-          isChecked={props.status}
-          value={props.status}
-          onThumbColor={Colors.deepGray}
-          onValueChange={() =>
-            props.status === true
-              ? props.unpin(props._id)
-              : props.pin(props._id)
-          }
-          zIndex={100}
-        />
+        <Text style={styles.item} numberOfLines={1} ellipsizeMode="tail">
+          {props.phone}
+        </Text>
+        <Text style={styles.item} numberOfLines={1} ellipsizeMode="tail">
+          {props.address} | {props.country}
+        </Text>
+        <Text style={styles.item}>Trạng thái: {props.status}</Text>
       </TouchableOpacity>
     </View>
   );
@@ -160,4 +125,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ListItem;
+export default ListItemUser;

@@ -122,6 +122,7 @@ const OrderCard = (props) => {
         <Text>Địa chỉ: {props.address}</Text>
         <Text>Quận: {props.country}</Text>
         <Text>Ghi chú: {props.note}</Text>
+        <Text style={{ fontWeight: "500" }}>Người book: {props.user.name}</Text>
         <Text>Ngày tạo: {props.dateOrdered.split("T")[0]}</Text>
         <View style={styles.priceContainer}>
           <Text>Đơn giá: </Text>

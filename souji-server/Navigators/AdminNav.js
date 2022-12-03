@@ -6,6 +6,7 @@ import Categories from "../Screens/Admin/Categories";
 import ProductForm from "../Screens/Admin/ProductForm";
 import Orders from "../Screens/Admin/Orders";
 import Users from "../Screens/Admin/User";
+import UserForm from "../Screens/Admin/UserForm";
 
 const Stack = createStackNavigator();
 
@@ -35,7 +36,6 @@ function MyStack() {
           headerShown: false,
         }}
       />
-
       <Stack.Screen
         name="Orders"
         component={Orders}
@@ -46,6 +46,13 @@ function MyStack() {
       <Stack.Screen
         name="Users"
         component={Users}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="UserForm"
+        component={UserForm}
         options={{
           headerShown: false,
         }}

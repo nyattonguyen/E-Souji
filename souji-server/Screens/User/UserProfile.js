@@ -12,7 +12,7 @@ import { logoutUser } from "../../Context/actions/Auth.actions";
 
 import { Colors } from "../../color";
 
-const { width } = Dimensions.get("window");
+const { width, height } = Dimensions.get("window");
 
 const UserProfile = (props) => {
   const context = useContext(AuthGlobal);
@@ -79,7 +79,7 @@ const UserProfile = (props) => {
       <ScrollView style={styles.subContainer}>
         <View style={styles.containerSD}>
           <View style={styles.info}>
-            <Text>Hello !</Text>
+            <Text style={{ fontWeight: "500", fontSize: 28 }}>Hello !</Text>
             <Text style={{ fontSize: 30 }}>
               {userProfile ? userProfile.name : ""}
             </Text>
@@ -99,7 +99,7 @@ const UserProfile = (props) => {
                 Chỉnh sửa hồ sơ cá nhân
               </Button>
             </View>
-            <View style={{ marginTop: 30 }}>
+            <View style={{ marginTop: 30, marginBottom: 20 }}>
               <Button
                 style={styles.btn}
                 onPress={() => [
@@ -124,31 +124,36 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   subContainer: {
-    marginTop: 20,
+    marginTop: 40,
   },
   btn: {
     backgroundColor: Colors.bluemain,
     fontWeight: "600",
     shadowColor: "#000",
     shadowOffset: {
-      width: 0,
+      width: 0.2,
       height: 4,
     },
     shadowOpacity: 0.32,
     shadowRadius: 5.46,
 
     elevation: 9,
+    marginBottom: 20,
   },
   containerSD: {
+    width: width / 2,
+    height: height / 2 + 100,
     backgroundColor: Colors.white,
     borderRadius: 10,
-    shadowColor: "#000",
+    shadowColor: Colors.bluemain,
     shadowOffset: {
       width: 0,
       height: 7,
     },
     shadowOpacity: 0.43,
     elevation: 15,
+    justifyContent: "center",
+    alignItems: "center",
   },
   history: {
     margin: 10,
@@ -163,16 +168,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: width - 60,
     height: 320,
-    backgroundColor: Colors.white,
-    borderRadius: 10,
-    shadowColor: "#008D6C",
-    shadowOffset: {
-      width: 0,
-      height: 7,
-    },
-    shadowOpacity: 0.43,
-
-    elevation: 15,
   },
   order: {
     marginTop: 20,

@@ -20,8 +20,8 @@ const Tab = createBottomTabNavigator();
 const Main = () => {
   const context = useContext(AuthGlobal);
 
-  console.log(context);
-  console.log(!!context?.stateUser?.userProfile?.isAdmin);
+  // console.log(context);
+  // console.log(!!context?.stateUser?.userProfile?.isAdmin);
 
   return (
     <Tab.Navigator
@@ -32,16 +32,6 @@ const Main = () => {
         tabBarActiveTintColor: Colors.bluemain,
       }}
     >
-      <Tab.Screen
-        name="Users"
-        component={UserNav}
-        options={{
-          headerShown: false,
-          tabBarIcon: ({ color }) => (
-            <Icon name="user" color={color} size={30} />
-          ),
-        }}
-      />
       {context?.stateUser?.userProfile?.isAdmin === true ? (
         <Tab.Screen
           name="Admin"
@@ -54,6 +44,16 @@ const Main = () => {
           }}
         />
       ) : null}
+      <Tab.Screen
+        name="Users"
+        component={UserNav}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ color }) => (
+            <Icon name="user" color={color} size={30} />
+          ),
+        }}
+      />
     </Tab.Navigator>
   );
 };

@@ -74,10 +74,9 @@ const ProductForm = (props) => {
     console.log("category", category);
     formData.append("name", name);
     formData.append("price", price);
-    formData.append("quanlity", quanlityH);
+    formData.append("quanlityH", quanlityH);
     formData.append("desc", desc);
     formData.append("category", category);
-
     const config = {
       headers: {
         "Content-Type": "application/json",
@@ -165,7 +164,7 @@ const ProductForm = (props) => {
       </View>
       <Input
         placeholder="Quanlity"
-        name="quanlity"
+        name="quanlityH"
         id="quanlityH"
         value={quanlityH}
         onChangeText={(text) => setQuanlityH(text)}

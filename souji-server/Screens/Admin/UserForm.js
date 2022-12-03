@@ -10,40 +10,23 @@ import {
 import { Box, Input, Button } from "native-base";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { useFocusEffect } from "@react-navigation/native";
-import ListItem from "./ListItem";
 
 import axios from "axios";
 import baseURL from "../../assets/common/baseUrl";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import ListItemUser from "./ListItemUser";
+import Toast from "react-native-toast-message";
+import clientAxios from "../../apis";
 
 var { height, width } = Dimensions.get("window");
 
-const ListHeader = () => {
-  return (
-    <View elevation={1} style={styles.listHeader}>
-      <View style={styles.headerItem}>
-        <Text style={{ fontWeight: "600", marginLeft: 10 }}>Name</Text>
-      </View>
-      <View style={styles.headerItem}>
-        <Text style={{ fontWeight: "600" }}>Category</Text>
-      </View>
-      <View style={styles.headerItem}>
-        <Text style={{ fontWeight: "600" }}>Price</Text>
-      </View>
-      <View style={styles.headerItem}>
-        <Text style={{ fontWeight: "600" }}>Pin</Text>
-      </View>
-    </View>
-  );
-};
-
-const Products = (props) => {
-  const [productList, setProductList] = useState();
-  const [productFilter, setProductFilter] = useState();
-  // const [productPin, setProductPin]  = useState([]);
+const UserForm = (props) => {
+  const [userList, setUserList] = useState();
+  const [userFilter, setUserFilter] = useState();
   const [loading, setLoading] = useState(true);
   const [token, setToken] = useState();
 
+  console.log(props.id);
   useFocusEffect(
     useCallback(() => {
       // Get Token
@@ -53,82 +36,54 @@ const Products = (props) => {
         })
         .catch((error) => console.log(error));
 
-      axios.get(`${baseURL}products`).then((res) => {
-        setProductList(res.data);
-        setProductFilter(res.data);
+      axios.get(`${baseURL}users`).then((res) => {
+        setUserList(res.data);
+        setUserFilter(res.data);
         setLoading(false);
       });
 
       return () => {
-        setProductList();
-        setProductFilter();
-        // setProductPin([]);
+        setUserList();
+        setUserFilter();
         setLoading(true);
       };
     }, [])
   );
 
-  const searchProduct = (text) => {
+  const searchUser = (text) => {
     if (text == "") {
-      setProductFilter(productList);
+      setUserFilter(userList);
     }
-    setProductFilter(
-      productList.filter((i) =>
-        i.name.toLowerCase().includes(text.toLowerCase())
-      )
+    setUserFilter(
+      userList.filter((i) => i.name.toLowerCase().includes(text.toLowerCase()))
     );
   };
 
-  const deleteProduct = (id) => {
+  const disableUser = (id) => {
     axios
-      .delete(`${baseURL}products/${id}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
-      .then((res) => {
-        const products = productFilter.filter((item) => item.id !== id);
-        setProductFilter(products);
-      })
-      .catch((error) => console.log(error));
-  };
-
-  const pinProduct = (id) => {
-    axios
-      .put(`${baseURL}products/get/pin/${id}`)
+      .put(`${baseURL}users/disable/${id}`)
       .then((res) => {
         if (res.status == 200 || res.status == 201) {
           Toast.show({
             topOffset: 60,
             type: "success",
-            text1: "Pin success",
+            text1: "Disabled success",
             text2: "",
           });
           setTimeout(() => {
-            props.navigation.navigate("Products");
+            props.navigation.navigate("UserForm");
           }, 500);
         }
-        setProductFilter(productList);
+        setUserFilter(userList);
       })
-      .catch((error) => console.log(error));
-  };
-
-  const unPinProduct = (id) => {
-    axios
-      .put(`${baseURL}products/get/unpin/${id}`)
-      .then((res) => {
-        if (res.status == 200 || res.status == 201) {
-          Toast.show({
-            topOffset: 60,
-            type: "success",
-            text1: "un pin success",
-            text2: "",
-          });
-          setTimeout(() => {
-            props.navigation.navigate("Products");
-          }, 500);
-        }
-        setProductFilter(productList);
-      })
-      .catch((error) => console.log(error));
+      .catch((error) =>
+        Toast.show({
+          topOffset: 60,
+          type: "error",
+          text1: "Có lỗi xảy ra",
+          text2: "Vui lòng thử lại",
+        })
+      );
   };
 
   return (
@@ -136,7 +91,7 @@ const Products = (props) => {
       <View style={styles.buttonContainer}>
         <Button
           style={styles.btn}
-          onPress={() => props.navigation.navigate("Orders")}
+          onPress={() => props.navigation.navigate("Users")}
         >
           <Icon
             style={styles.icon1}
@@ -148,7 +103,7 @@ const Products = (props) => {
         </Button>
         <Button
           style={styles.btn}
-          onPress={() => props.navigation.navigate("ProductForm")}
+          onPress={() => props.navigation.navigate("Product")}
         >
           <Icon style={styles.icon2} name="plus" size={18} color="white" />
           <Text style={styles.buttonText}>Products</Text>
@@ -162,9 +117,9 @@ const Products = (props) => {
         </Button>
         <Button
           style={styles.btn}
-          onPress={() => props.navigation.navigate("UserForm")}
+          onPress={() => props.navigation.navigate("Users")}
         >
-          <Icon style={styles.icon4} name="plus" size={18} color="white" />
+          <Icon style={styles.icon3} name="plus" size={18} color="white" />
           <Text style={styles.buttonText}>Users</Text>
         </Button>
       </View>
@@ -175,43 +130,33 @@ const Products = (props) => {
             fontWeight: "500",
           }}
         >
-          Product
+          Users
         </Text>
-
+      </View>
+      <View>
         <View>
-          <View
-            style={{
-              padding: 5,
-              width: width,
-              marginTop: -70,
-              marginBottom: -60,
-            }}
-          >
+          <View style={{ padding: 5 }}>
             <Input
-              margin={20}
               placeholder=" Search"
-              onChangeText={(text) => searchProduct(text)}
+              onChangeText={(text) => searchUser(text)}
             ></Input>
           </View>
         </View>
       </View>
-      <View></View>
+
       {loading ? (
         <View style={styles.spinner}>
           <ActivityIndicator size="large" color="red" />
         </View>
       ) : (
         <FlatList
-          data={productFilter}
-          ListHeaderComponent={ListHeader}
+          data={userFilter}
           renderItem={({ item, index }) => (
-            <ListItem
+            <ListItemUser
               {...item}
               navigation={props.navigation}
               index={index}
-              delete={deleteProduct}
-              pin={pinProduct}
-              unpin={unPinProduct}
+              disable={disableUser}
             />
           )}
           keyExtractor={(item) => item.id}
@@ -262,9 +207,6 @@ const styles = StyleSheet.create({
   icon3: {
     marginLeft: 28,
   },
-  icon4: {
-    marginLeft: 13,
-  },
 });
 
-export default Products;
+export default UserForm;
