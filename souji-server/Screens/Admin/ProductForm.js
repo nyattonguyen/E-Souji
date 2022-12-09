@@ -6,6 +6,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   Platform,
+  Dimensions,
 } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { Box, Button, Select } from "native-base";
@@ -18,6 +19,8 @@ import Toast from "react-native-toast-message";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import baseURL from "../../assets/common/baseUrl";
 import axios from "axios";
+
+const { width } = Dimensions.get("window");
 
 const ProductForm = (props) => {
   const [pickerValue, setPickerValue] = useState();
@@ -184,7 +187,6 @@ const ProductForm = (props) => {
       </View>
       <Box style={styles.boxfIP}>
         <Picker
-          mode="dropdown"
           style={styles.picker}
           placeholder="Select your Category"
           selectedValue={pickerValue}
@@ -208,19 +210,19 @@ export default ProductForm;
 
 const styles = StyleSheet.create({
   boxfIP: {
-    width: "80%",
+    width: width - 550,
     height: 60,
     backgroundColor: "white",
     margin: 10,
     borderRadius: 20,
     padding: 10,
     borderWidth: 2,
-    borderColor: "orange",
+    borderColor: Colors.bluemain,
     justifyContent: "center",
     fontSize: 15,
   },
   picker: {
-    width: undefined,
+    width: "80%",
     shadowColor: Colors.deepGray,
     alignItems: "center",
     justifyContent: "center",

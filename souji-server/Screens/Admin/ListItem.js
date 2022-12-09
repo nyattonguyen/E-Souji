@@ -106,7 +106,6 @@ const ListItem = (props) => {
         <Switch
           offTrackColor={Colors.gray}
           onTrackColor={Colors.bluemain}
-          // isChecked={props.status === true}
           isChecked={props.status}
           value={props.status}
           onThumbColor={Colors.deepGray}

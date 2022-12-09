@@ -17,6 +17,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import ListItemUser from "./ListItemUser";
 import Toast from "react-native-toast-message";
 import clientAxios from "../../apis";
+import { Colors } from "../../color";
 
 var { height, width } = Dimensions.get("window");
 
@@ -58,7 +59,32 @@ const UserForm = (props) => {
       userList.filter((i) => i.name.toLowerCase().includes(text.toLowerCase()))
     );
   };
-
+  const editUser = (id) => {
+    axios
+      .put(`${baseURL}users/${id}`)
+      .then((res) => {
+        if (res.status == 200 || res.status == 201) {
+          Toast.show({
+            topOffset: 60,
+            type: "success",
+            text1: "Edit success",
+            text2: "",
+          });
+          setTimeout(() => {
+            props.navigation.navigate("UserForm");
+          }, 500);
+        }
+        setUserFilter(userList);
+      })
+      .catch((error) =>
+        Toast.show({
+          topOffset: 60,
+          type: "error",
+          text1: "Có lỗi xảy ra",
+          text2: "Vui lòng thử lại",
+        })
+      );
+  };
   const disableUser = (id) => {
     axios
       .put(`${baseURL}users/disable/${id}`)
@@ -91,7 +117,7 @@ const UserForm = (props) => {
       <View style={styles.buttonContainer}>
         <Button
           style={styles.btn}
-          onPress={() => props.navigation.navigate("Users")}
+          onPress={() => props.navigation.navigate("Orders")}
         >
           <Icon
             style={styles.icon1}
@@ -103,7 +129,7 @@ const UserForm = (props) => {
         </Button>
         <Button
           style={styles.btn}
-          onPress={() => props.navigation.navigate("Product")}
+          onPress={() => props.navigation.navigate("Products")}
         >
           <Icon style={styles.icon2} name="plus" size={18} color="white" />
           <Text style={styles.buttonText}>Products</Text>
@@ -117,7 +143,7 @@ const UserForm = (props) => {
         </Button>
         <Button
           style={styles.btn}
-          onPress={() => props.navigation.navigate("Users")}
+          onPress={() => props.navigation.navigate("UserForm")}
         >
           <Icon style={styles.icon3} name="plus" size={18} color="white" />
           <Text style={styles.buttonText}>Users</Text>
@@ -157,6 +183,7 @@ const UserForm = (props) => {
               navigation={props.navigation}
               index={index}
               disable={disableUser}
+              edit={editUser}
             />
           )}
           keyExtractor={(item) => item.id}
@@ -193,18 +220,25 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     marginLeft: 4,
-    color: "white",
+    fontSize: 24,
+    color: Colors.black,
+    fontWeight: "600",
   },
   btn: {
-    marginRight: 3,
+    margin: 10,
+    fontSize: 20,
+    backgroundColor: "none",
   },
   icon1: {
+    color: Colors.black,
     marginLeft: 16,
   },
   icon2: {
+    color: Colors.black,
     marginLeft: 22,
   },
   icon3: {
+    color: Colors.black,
     marginLeft: 28,
   },
 });

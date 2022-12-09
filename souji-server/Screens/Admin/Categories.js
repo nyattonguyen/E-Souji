@@ -20,15 +20,27 @@ var { width } = Dimensions.get("window");
 const Item = (props) => {
   return (
     <View style={styles.item}>
-      <Text>{props.item.name}</Text>
-      <TouchableOpacity
-        style={[styles.btn, styles.delete]}
-        onPress={() => props.delete(props.item._id)}
-      >
-        <Text style={{ color: "white", fontWeight: "bold", marginTop: 5 }}>
-          Delete
-        </Text>
-      </TouchableOpacity>
+      <Text style={{ marginLeft: 10 }}>{props.item.name}</Text>
+
+      {props.item.status === "disable" ? (
+        <TouchableOpacity
+          style={[styles.btn, styles.disable]}
+          onPress={() => props.disable(props.item._id)}
+        >
+          <Text style={{ color: "white", fontWeight: "bold", marginTop: 5 }}>
+            Disable
+          </Text>
+        </TouchableOpacity>
+      ) : (
+        <TouchableOpacity
+          style={[styles.btn, styles.enable]}
+          onPress={() => props.enable(props.item._id)}
+        >
+          <Text style={{ color: "white", fontWeight: "bold", marginTop: 5 }}>
+            Enable
+          </Text>
+        </TouchableOpacity>
+      )}
     </View>
   );
 };
@@ -74,7 +86,58 @@ const Categories = (props) => {
 
     setCategoryName("");
   };
+  const disableCategory = (id) => {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
 
+    axios
+      .put(`${baseURL}categories/disable/${id}`, config)
+      .then((res) => {
+        if (res.status == 200 || res.status == 201) {
+          Toast.show({
+            topOffset: 60,
+            type: "success",
+            text1: "Disable category successfuly ",
+            text2: "",
+          });
+          setTimeout(() => {
+            props.navigation.navigate("Categories");
+          }, 500);
+        }
+        const newCategories = categories.filter((item) => item.id !== id);
+        setCategories(newCategories);
+      })
+      .catch((error) => alert("Error to load categories"));
+  };
+  const enableCategory = (id) => {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    axios
+      .put(`${baseURL}categories/enable/${id}`, config)
+      .then((res) => {
+        if (res.status == 200 || res.status == 201) {
+          Toast.show({
+            topOffset: 60,
+            type: "success",
+            text1: "Enable category successfuly ",
+            text2: "",
+          });
+          setTimeout(() => {
+            props.navigation.navigate("Categories");
+          }, 500);
+        }
+        const newCategories = categories.filter((item) => item.id !== id);
+        setCategories(newCategories);
+      })
+      .catch((error) => alert("Error to load categories"));
+  };
   const deleteCategory = (id) => {
     const config = {
       headers: {
@@ -108,14 +171,21 @@ const Categories = (props) => {
         <FlatList
           data={categories}
           renderItem={({ item, index }) => (
-            <Item item={item} index={index} delete={deleteCategory} />
+            <Item
+              item={item}
+              index={index}
+              disable={disableCategory}
+              enable={enableCategory}
+            />
           )}
           keyExtractor={(item) => item.id}
         />
       </View>
       <View style={styles.bottomBar}>
         <View>
-          <Text>Add Category</Text>
+          <Text style={{ marginLeft: 10, fontSize: 16, fontWeight: "500" }}>
+            Add Category
+          </Text>
         </View>
         <View style={{ width: width / 2.5 }}>
           <TextInput
@@ -187,9 +257,14 @@ const styles = StyleSheet.create({
     margin: 10,
     alignItems: "center",
   },
-  delete: {
+  disable: {
     backgroundColor: Colors.red,
     color: Colors.white,
+    borderRadius: 10,
+  },
+  enable: {
+    backgroundColor: Colors.main,
+    color: Colors.black,
     borderRadius: 10,
   },
 });

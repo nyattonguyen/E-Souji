@@ -10,9 +10,9 @@ const Banner = () => {
 
   useEffect(() => {
     setBannerData([
-      "../assets/image/bn1.jpg",
-      "https://vesinhcongnghiephcm.com.vn/quy-trinh-ve-sinh-van-phong-hang-ngay-cua-mot-nhan-vien-tap-vu.html",
-      "../assets/image/bn1.jpg",
+      "https://vesinhnhahcm.com/wp-content/uploads/2019/08/dich-vu-nha-o-dinh-ky.jpg",
+      "https://top10uytin.net/wp-content/uploads/2021/06/top-cong-ty-dich-vu-ve-sinh.jpg",
+      "https://www.truongxanhdana.com/upload/images/kem-mun-hoa-dao-thao-duoc.jpg",
     ]);
 
     return () => {
@@ -36,7 +36,7 @@ const Banner = () => {
                   key={item}
                   style={styles.imageBanner}
                   resizeMode="contain"
-                  source={require("../assets/image/bn1.jpg")}
+                  source={{ uri: item }}
                 />
               );
             })}

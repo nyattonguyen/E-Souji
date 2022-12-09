@@ -17,22 +17,44 @@ import CardActivity from "../../Shared/CardActivity";
 import { useFocusEffect } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 // axios
-import axios from "axios";
-import baseURL from "../../assets/common/baseUrl";
 import AuthGlobal from "../../Context/store/AuthGlobal";
 import clientAxios from "../../apis";
-import CardNewOrder from "../../Shared/CartNewOrder";
-import CardAcNew from "../../Shared/CardActivity";
-
+import CardNewOrder from "../../Shared/CardNewOrder";
+import { Toast } from "react-native-toast-message";
+import TrafficLight from "../../Shared/StyleComponents/TrafficLight";
 const { width } = Dimensions.get("window");
 
 const NewActivity = (props) => {
   const context = useContext(AuthGlobal);
-
+  const [statusChange, setStatusChange] = useState();
+  const [statusText, setStatusText] = useState();
   const [orderNew, setOrderNew] = useState();
+  const [cardColor, setCardColor] = useState();
+  const [orderStatus, setOrderStatus] = useState();
 
   useFocusEffect(
     useCallback(() => {
+      if (props.status == "4") {
+        setOrderStatus(<TrafficLight unavailable></TrafficLight>);
+        setStatusText("Dang cho duyet");
+        setCardColor("#E74C3C");
+      } else if (props.status == "3") {
+        setOrderStatus(<TrafficLight limited></TrafficLight>);
+        setStatusText("Dang den ....");
+        setCardColor("#F1C40F");
+      } else if (props.status == "2") {
+        setOrderStatus(<TrafficLight limited></TrafficLight>);
+        setStatusText("Dang lam viec");
+        setCardColor("#F34019");
+      } else if (props.status == "5") {
+        setOrderStatus(<TrafficLight limited></TrafficLight>);
+        setStatusText("Da huy");
+        setCardColor("#F34019");
+      } else {
+        setOrderStatus(<TrafficLight available></TrafficLight>);
+        setStatusText("Hoan thanh");
+        setCardColor("#fff");
+      }
       // new order
       AsyncStorage.getItem("jwt").then((res) => {
         if (!context?.stateUser?.user?.id) return;
@@ -47,60 +69,33 @@ const NewActivity = (props) => {
 
       return () => {
         setOrderNew();
+        setOrderStatus();
+        setStatusText();
+        setCardColor();
       };
     }, [context.stateUser.isAuthenticated])
   );
-  console.log("ccccc", orderNew);
-
-  const cancleOrder = (id) => {
-    clientAxios
-      .delete(`orders/${id}`)
-      .then((res) => {
-        const order = orderNew.filter((item) => item._id !== id);
-        setOrderNew(order);
-        if (res.status == 200 || res.status == 201) {
-          Toast.show({
-            topOffset: 60,
-            type: "success",
-            text1: "Hủy thành công",
-            text2: "",
-          });
-          setTimeout(() => {
-            props.navigation.navigate("Chờ duyệt");
-          }, 500);
-        }
-      })
-      .catch((error) => {
-        Toast.show({
-          topOffset: 60,
-          type: "error",
-          text1: "Có lỗi xảy ra",
-          text2: "Vui lòng thử lại",
-        });
-      });
-  };
 
   return (
     <View style={styles.container}>
       <Box>
         <ScrollView showsVerticalScrollIndicator={true}>
-          <View>
+          <View style={{ flex: 1 }}>
             {orderNew ? (
               orderNew.map((x) => {
                 return (
                   <View>
-                    <CardAcNew key={x.id} {...x} />
-                    <View style={styles.btn}>
-                      <Button marginRight={10} onPress={() => cancleOrder()}>
-                        Hủy
-                      </Button>
-                    </View>
+                    <CardNewOrder key={x.id} {...x} />
                   </View>
                 );
               })
             ) : (
-              <Box flex={1}>
-                <Center alignContent="center" alignItems="center" h="full">
+              <View>
+                <Center
+                  display="flex"
+                  alignContent="center"
+                  alignItems="center"
+                >
                   <Image
                     source={require("../../assets/image/orderempty.png")}
                     w={100}
@@ -109,11 +104,15 @@ const NewActivity = (props) => {
                   />
                   <Center>Công việc đang trống</Center>
                   <Spacer />
-                  <Button shadow={1} style={styles.button}>
+                  <Button
+                    shadow={1}
+                    style={styles.button}
+                    onPress={() => props.navigation.navigate("Home")}
+                  >
                     Đăng việc ngay
                   </Button>
                 </Center>
-              </Box>
+              </View>
             )}
           </View>
         </ScrollView>

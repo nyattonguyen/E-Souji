@@ -1,7 +1,6 @@
 import { ScrollView } from "native-base";
 import React from "react";
 import { TouchableOpacity, View, Dimensions } from "react-native";
-import { Colors } from "react-native-paper";
 
 import ProductCard from "./ProductCard";
 

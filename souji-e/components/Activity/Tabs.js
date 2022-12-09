@@ -12,9 +12,9 @@ const Tab = createMaterialTopTabNavigator();
 function Tabs() {
   return (
     <Tab.Navigator>
-      <Tab.Screen name="Chờ duyệt" component={NewActivity} />
+      {/* <Tab.Screen name="Chờ duyệt" component={NewActivity} />
       <Tab.Screen name="Đang làm" component={DoActivity} />
-      <Tab.Screen name="Hoàn thành" component={FnActivity} />
+      <Tab.Screen name="Hoàn thành" component={FnActivity} /> */}
     </Tab.Navigator>
   );
 }

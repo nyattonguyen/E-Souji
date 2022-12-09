@@ -26,7 +26,7 @@ export const App = () => {
   return (
     // <NativeBaseProvider>
     //   <View style={styles.container}>
-    //     <Test1 />
+    //     <Test />
     //   </View>
     // </NativeBaseProvider>
     <Auth>

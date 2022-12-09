@@ -7,9 +7,9 @@ import {
   TouchableHighLight,
   TouchableOpacity,
   Dimensions,
-  Button,
   Modal,
 } from "react-native";
+import { Button } from "native-base";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { Colors } from "../../color";
 
@@ -46,10 +46,20 @@ const ListItemUser = (props) => {
             </TouchableOpacity>
 
             <Button
-              title="Disable"
               color={Colors.red}
               onPress={() => [props.disable(props._id), setModalVisible(false)]}
-            ></Button>
+            >
+              Disable
+            </Button>
+            <Button
+              style={{ marginTop: 10 }}
+              onPress={() => [
+                props.navigation.navigate("Users", { item: props }),
+                setModalVisible(false),
+              ]}
+            >
+              Edit
+            </Button>
           </View>
         </View>
       </Modal>

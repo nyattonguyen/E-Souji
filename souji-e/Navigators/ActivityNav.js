@@ -1,42 +1,24 @@
 import React, { useContext } from "react";
-import { createStackNavigator } from "@react-navigation/stack";
-
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 //Screen
-
-import ActivityContainer from "../Screens/Activity/ActivityContainer";
-import Tabs from "../components/Activity/Tabs";
 import { Dimensions, StyleSheet, View } from "react-native";
 import { Colors } from "../color";
-import AuthGlobal from "../Context/store/AuthGlobal";
-import { Text } from "native-base";
 
-const Stack = createStackNavigator();
+import NewActivity from "../components/Activity/NewActivity";
+import DoActivity from "../components/Activity/DoActivity";
+import FnActivity from "../components/Activity/FnActivity";
+
+const Stack = createMaterialTopTabNavigator();
+
 const { width, height } = Dimensions.get("window");
 
 function MyStack() {
-  const context = useContext(AuthGlobal);
-  console.log("abcc", context);
   return (
-    <View style={styles.container}>
-      <View
-        style={{
-          width: width,
-          backgroundColor: Colors.bluemain,
-          height: height,
-        }}
-      >
-        <Tabs />
-      </View>
-    </View>
-    // <Stack.Navigator>
-    //   <Stack.Screen
-    //     name="ActivityCon"
-    //     component={ActivityContainer}
-    //     options={{
-    //       headerShown: false,
-    //     }}
-    //   />
-    // </Stack.Navigator>
+    <Stack.Navigator>
+      <Stack.Screen name="Chờ duyệt" component={NewActivity} />
+      <Stack.Screen name="Đang làm" component={DoActivity} />
+      <Stack.Screen name="Hoàn thành" component={FnActivity} />
+    </Stack.Navigator>
   );
 }
 const styles = StyleSheet.create({

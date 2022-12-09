@@ -7,9 +7,6 @@ import Error from "../../Shared/Error";
 import Toast from "react-native-toast-message";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { Colors } from "../../color";
-
-import axios from "axios";
-import baseURL from "../../assets/common/baseUrl";
 import clientAxios from "../../apis";
 
 const Register = (props) => {
@@ -63,7 +60,7 @@ const Register = (props) => {
       extraHeight={200}
       enableOnAndroid={true}
     >
-      <FormContainer title={"Register"}>
+      <FormContainer title={"Đăng kí"}>
         <Input
           placeholder={"Email"}
           name={"email"}

@@ -68,7 +68,7 @@ const CardAcDo = (props) => {
       dateOrdered: props.dateOrdered,
     };
     clientAxios
-      .put(`${baseURL}orders/get/checkorder/${props.id}`, order)
+      .put(`/orders/get/checkorder/${props.id}`, order)
       .then((res) => {
         if (res.status == 200 || res.status == 201) {
           Toast.show({
@@ -78,7 +78,7 @@ const CardAcDo = (props) => {
             text2: "",
           });
           setTimeout(() => {
-            props.navigation.navigate("FnActivity");
+            // props.navigation.navigate("Hoàn thành");
           }, 500);
         }
       })

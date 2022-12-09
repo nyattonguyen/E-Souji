@@ -25,15 +25,16 @@ const DoActivity = (props) => {
             const data = x.data.doactivity;
             setOrderDoi(data);
           });
+
+        clientAxios
+          .get(`/orders/userorderdeli/${context.stateUser.user.id}`)
+          .then((x) => {
+            const data2 = x.data.deliativity;
+            setOrderDeli(data2);
+          });
       });
       // dang den
 
-      clientAxios
-        .get(`/orders/userorderdeli/${context.stateUser.user.id}`)
-        .then((x) => {
-          const data2 = x.data.deliativity;
-          setOrderDeli(data2);
-        });
       return () => {
         setOrderDeli();
         setOrderDoi();
@@ -45,15 +46,18 @@ const DoActivity = (props) => {
     <View>
       <ScrollView showsVerticalScrollIndicator={true}>
         <View style={styles.item}>
-          {orderDoi ? (
-            orderDoi.map((item) => {
-              return <CardAcDo key={item.id} {...item} />;
-            })
-          ) : (
-            <View>
-              <Text>RONG TONG</Text>
-            </View>
-          )}
+          {orderDoi
+            ? orderDoi.map((item) => {
+                return <CardAcDo key={item.id} {...item} />;
+              })
+            : null}
+        </View>
+        <View style={styles.item}>
+          {orderDeli
+            ? orderDeli.map((item) => {
+                return <CardAcDeli key={item.id} {...item} />;
+              })
+            : null}
         </View>
       </ScrollView>
     </View>

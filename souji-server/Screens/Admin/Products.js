@@ -12,9 +12,11 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import { useFocusEffect } from "@react-navigation/native";
 import ListItem from "./ListItem";
 
+import Toast from "react-native-toast-message";
 import axios from "axios";
 import baseURL from "../../assets/common/baseUrl";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Colors } from "../../color";
 
 var { height, width } = Dimensions.get("window");
 
@@ -62,7 +64,6 @@ const Products = (props) => {
       return () => {
         setProductList();
         setProductFilter();
-        // setProductPin([]);
         setLoading(true);
       };
     }, [])
@@ -90,7 +91,10 @@ const Products = (props) => {
       })
       .catch((error) => console.log(error));
   };
-
+  const reRender = () => {
+    setProductFilter(productFilter + 1);
+    // this.forceUpdate();
+  };
   const pinProduct = (id) => {
     axios
       .put(`${baseURL}products/get/pin/${id}`)
@@ -106,7 +110,7 @@ const Products = (props) => {
             props.navigation.navigate("Products");
           }, 500);
         }
-        setProductFilter(productList);
+        setProductFilter([...productList, res.data]);
       })
       .catch((error) => console.log(error));
   };
@@ -126,7 +130,7 @@ const Products = (props) => {
             props.navigation.navigate("Products");
           }, 500);
         }
-        setProductFilter(productList);
+        setProductFilter(productFilter);
       })
       .catch((error) => console.log(error));
   };
@@ -241,28 +245,37 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
   buttonContainer: {
-    margin: 20,
+    marginTop: 0,
     alignSelf: "center",
     alignItems: "center",
     flexDirection: "row",
+    width: width,
+    justifyContent: "center",
   },
   buttonText: {
     marginLeft: 4,
-    color: "white",
+    color: Colors.black,
+    fontSize: 24,
   },
   btn: {
-    marginRight: 3,
+    margin: 10,
+    fontSize: 20,
+    backgroundColor: "none",
   },
   icon1: {
+    color: Colors.black,
     marginLeft: 16,
   },
   icon2: {
+    color: Colors.black,
     marginLeft: 22,
   },
   icon3: {
+    color: Colors.black,
     marginLeft: 28,
   },
   icon4: {
+    color: Colors.black,
     marginLeft: 13,
   },
 });

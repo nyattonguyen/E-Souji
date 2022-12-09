@@ -16,20 +16,23 @@ const CardNewOrder = (props) => {
   const [statusText, setStatusText] = useState();
   const [token, setToken] = useState();
   const [cardColor, setCardColor] = useState();
+  const [statusChange, setStatusChange] = useState();
 
   useEffect(() => {
-    // if (props.editMode) {
     AsyncStorage.getItem("jwt")
       .then((res) => {
         setToken(res);
       })
       .catch((error) => console.log(error));
-    // }
 
     if (props.status == "4") {
       setOrderStatus(<TrafficLight unavailable></TrafficLight>);
       setStatusText("Dang cho duyet");
       setCardColor("#E74C3C");
+    } else if (props.status == "5") {
+      setOrderStatus(<TrafficLight limited></TrafficLight>);
+      setStatusText("Da huy");
+      setCardColor("#F34019");
     } else if (props.status == "3") {
       setOrderStatus(<TrafficLight limited></TrafficLight>);
       setStatusText("Dang den ....");
@@ -50,21 +53,31 @@ const CardNewOrder = (props) => {
       setCardColor();
     };
   }, []);
-
-  const cancleOrder = () => {
+  const deleteOrderNew = () => {
+    const order = {
+      id: props.id,
+      orderItems: props.orderItems,
+      phone: props.phone,
+      country: props.country,
+      address: props.address,
+      status: statusChange,
+      totalPrice: props.totalPrice,
+      user: props.user,
+      hours: props.hours,
+      date: props.date,
+      dateOrdered: props.dateOrdered,
+    };
     clientAxios
-      .delete(`/${props.id}`)
+      .put(`/orders/get/deleteorder/${props.id}`, order)
       .then((res) => {
         if (res.status == 200 || res.status == 201) {
           Toast.show({
             topOffset: 60,
             type: "success",
-            text1: "Công việc hoàn thành",
+            text1: "Đã hủy công việc",
             text2: "",
           });
-          setTimeout(() => {
-            props.navigation.navigate("Chờ duyệt");
-          }, 500);
+          setTimeout(() => {}, 500);
         }
       })
       .catch((error) => {
@@ -105,8 +118,11 @@ const CardNewOrder = (props) => {
               {props.totalPrice}VND
             </Text>
             <Text fontSize={13} color={Colors.black}>
-              {props.hours} | {props.date}
+              {props.hours} | {moment(props.date).format("DD-MM-YYYY")}{" "}
             </Text>
+            <Button style={styles.btn} onPress={() => deleteOrderNew()}>
+              Hủy
+            </Button>
           </View>
         </View>
       </Pressable>
@@ -117,7 +133,7 @@ export default CardNewOrder;
 
 const styles = StyleSheet.create({
   container: {
-    height: 100,
+    height: 125,
     width: width,
     flex: 1,
     display: "flex",
@@ -145,12 +161,8 @@ const styles = StyleSheet.create({
     flexDirection: "column",
   },
   btn: {
-    display: "flex",
-    height: 40,
-    width: width,
-    flex: 2,
-    position: "relative",
-    flexDirection: "row-reverse",
-    borderRadius: 4,
+    right: -30,
+    backgroundColor: Colors.black,
+    marginTop: 2,
   },
 });

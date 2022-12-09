@@ -15,7 +15,7 @@ const CartItem = (props) => {
         <Text left={10} bold fontSize={20}>
           {data.product.name}
         </Text>
-        <Text color={Colors.red} fontWeight={400} marginLeft={10}>
+        <Text color={Colors.red} marginTop={2} fontWeight={400} marginLeft={20}>
           {data.product.price}VND
         </Text>
       </Box>
@@ -35,6 +35,7 @@ const styles = StyleSheet.create({
     margin: 10,
     alignItems: "center",
     flexDirection: "row",
+    justifyContent: "space-around",
   },
 });
 

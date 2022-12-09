@@ -163,6 +163,7 @@ const Checkout = (props) => {
         />
 
         <Select
+          mode="dropdown"
           style={styles.selecter}
           placeholder="Chọn khu vực"
           selectedValue={country}

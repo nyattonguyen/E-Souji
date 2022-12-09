@@ -55,6 +55,7 @@ const Main = () => {
         component={CartNav}
         options={{
           headerShown: false,
+          tabBarShowLabel: true,
           tabBarIcon: ({ color }) => (
             <View>
               <FontAwesome5 name="shopping-bag" color={color} size={30} />
@@ -69,8 +70,12 @@ const Main = () => {
           component={ActivityNav}
           options={{
             headerShown: false,
+            tabBarShowLabel: true,
             tabBarIcon: ({ color }) => (
-              <Icon name="list-alt" color={color} size={30} />
+              <>
+                <Icon name="list-alt" color={color} size={30} />
+                <CartIcon />
+              </>
             ),
           }}
         />
@@ -81,6 +86,8 @@ const Main = () => {
         component={UserNav}
         options={{
           headerShown: false,
+          tabBarShowLabel: true,
+
           tabBarIcon: ({ color }) => (
             <Icon name="cog" color={color} size={30} />
           ),

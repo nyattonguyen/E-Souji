@@ -8,12 +8,14 @@ import Input from "../../Shared/Form/Input";
 import AuthGlobal from "../../Context/store/AuthGlobal";
 import { loginUser } from "../../Context/actions/Auth.actions";
 import { Colors } from "../../color";
+import clientAxios from "../../apis";
+import Toast from "react-native-toast-message";
 
-const Login = (props) => {
+const Reset = (props) => {
   const context = useContext(AuthGlobal);
 
-  const [email, setEmail] = useState("inu@gmail.com");
-  const [password, setPassword] = useState("111111");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
   useEffect(() => {
@@ -34,9 +36,42 @@ const Login = (props) => {
       loginUser(user, context.dispatch);
     }
   };
+  const forgot = () => {
+    const user = {
+      email,
+    };
+
+    if (email === "") {
+      setError("Bạn hãy điền email và password");
+    }
+    clientAxios
+      .put(`/forgot`, user)
+      .then((res) => {
+        if (res.status == 200 || res.status == 201) {
+          Toast.show({
+            topOffset: 60,
+            type: "success",
+            text1: "Cập nhật thành công",
+            text2: "",
+          });
+          setTimeout(() => {
+            props.navigation.navigate("User Profile");
+          }, 500);
+        }
+      })
+      .catch((error) => {
+        Toast.show({
+          topOffset: 60,
+          type: "error",
+          text1: "Có lỗi xảy ra",
+          text2: "Vui lòng thử lại sau",
+        });
+      });
+  };
 
   return (
-    <FormContainer title={"Đăng nhập"}>
+    <FormContainer title={"Quên mật khẩu"}>
+      <Text style={{ margin: 10, fontSize: 16 }}>Hãy nhập email của bạn</Text>
       <Input
         placeholder={"example@gmail.com"}
         name={"email"}
@@ -44,40 +79,18 @@ const Login = (props) => {
         value={email}
         onChangeText={(text) => setEmail(text.toLowerCase())}
       />
-      <Input
-        placeholder={"****************"}
-        name={"password"}
-        id={"password"}
-        secureTextEntry={true}
-        value={password}
-        onChangeText={(text) => setPassword(text)}
-      />
+
       <View style={styles.buttonGroup}>
         {error ? <Error message={error} /> : null}
       </View>
       <View>
         <Button
-          onPress={() => handleSubmit()}
+          onPress={() => forgot()}
           backgroundColor={Colors.bluemain}
           color={Colors.white}
           style={styles.btn}
         >
-          <Text style={styles.text1}>Đăng nhập</Text>
-        </Button>
-      </View>
-      <View style={[{ marginTop: 25 }, styles.buttonGroup]}>
-        <Text style={styles.middleText}>Bạn đã có tài khoản chưa?</Text>
-        <Button
-          background="none"
-          onPress={() => props.navigation.navigate("Register")}
-        >
-          <Text style={styles.text2}>Đăng kí</Text>
-        </Button>
-        <Button
-          background="none"
-          onPress={() => props.navigation.navigate("Reset")}
-        >
-          <Text style={styles.text2}>Quên mật khẩu</Text>
+          <Text style={styles.text1}>Xác nhận</Text>
         </Button>
       </View>
     </FormContainer>
@@ -115,4 +128,4 @@ const styles = StyleSheet.create({
     color: Colors.steelblue,
   },
 });
-export default Login;
+export default Reset;

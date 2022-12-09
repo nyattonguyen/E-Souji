@@ -102,7 +102,7 @@ const Orders = (props) => {
           style={styles.btn}
           onPress={() => props.navigation.navigate("UserForm")}
         >
-          <Icon style={styles.icon4} name="plus" size={18} color="white" />
+          <Icon style={styles.icon3} name="plus" size={18} color="white" />
           <Text style={styles.buttonText}>Users</Text>
         </Button>
       </View>
@@ -165,21 +165,24 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     marginLeft: 4,
-    color: "white",
+    fontSize: 24,
+    color: Colors.black,
   },
   btn: {
-    marginRight: 3,
+    margin: 10,
+    fontSize: 20,
+    backgroundColor: "none",
   },
   icon1: {
+    color: Colors.black,
     marginLeft: 16,
   },
   icon2: {
+    color: Colors.black,
     marginLeft: 22,
   },
   icon3: {
+    color: Colors.black,
     marginLeft: 28,
-  },
-  icon3: {
-    marginLeft: 13,
   },
 });

@@ -6,6 +6,7 @@ import Register from "../Screens/User/Register";
 import UserProfile from "../Screens/User/UserProfile";
 import HistoryP from "../Screens/User/HistoryP";
 import EditProfile from "../Screens/User/EditProfile";
+import Reset from "../Screens/User/Reset";
 
 const Stack = createStackNavigator();
 
@@ -43,6 +44,13 @@ function MyStack() {
       <Stack.Screen
         name="Edit Profile"
         component={EditProfile}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="Reset"
+        component={Reset}
         options={{
           headerShown: false,
         }}

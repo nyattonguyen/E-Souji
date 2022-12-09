@@ -5,6 +5,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import Cart from "../Screens/Cart/Cart";
 import CheckoutNav from "./CheckoutNav";
 import HomeNav from "./HomeNav";
+import ProductContainer from "../Screens/Products/ProductContainer";
 
 const Stack = createStackNavigator();
 
@@ -28,7 +29,7 @@ function MyStack() {
       />
       <Stack.Screen
         name="Home"
-        component={HomeNav}
+        component={ProductContainer}
         options={{
           headerShown: false,
         }}

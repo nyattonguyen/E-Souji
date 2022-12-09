@@ -1,8 +1,9 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import moment from "moment";
-import { HStack, Pressable, Text, View } from "native-base";
+import { Button, HStack, Pressable, Text, View } from "native-base";
 import React, { useState, useEffect } from "react";
 import { StyleSheet, Dimensions } from "react-native";
+import clientAxios from "../apis";
 import { Colors } from "../color";
 
 import TrafficLight from "./StyleComponents/TrafficLight";
@@ -77,7 +78,7 @@ const CardAcNew = (props) => {
               {props.totalPrice}VND
             </Text>
             <Text fontSize={13} color={Colors.black}>
-              {props.hours} | {props.date}
+              {props.hours} | {moment(props.date).format("DD-MM-YYYY")}{" "}
             </Text>
           </View>
         </View>
@@ -89,7 +90,7 @@ export default CardAcNew;
 
 const styles = StyleSheet.create({
   container: {
-    height: 80,
+    height: 120,
     width: width,
     flex: 1,
     display: "flex",
