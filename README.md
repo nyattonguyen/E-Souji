@@ -1,5 +1,3 @@
-# E-Souji
+![image](https://github.com/nyattonguyen/E-Souji/assets/99775345/ab5faccc-4ee4-412c-86dd-84624ef6d8e3)
 
-Còn lỗi Toast trên android
-Chưa load forgot password (email) lên frontend
-chưa hoàn thiện reset password
+App Booking dọn vệ sinh phòng.
